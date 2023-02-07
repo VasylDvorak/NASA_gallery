@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.NASA_gallery" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Transparent system bars for edge-to-edge. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        <item name="chipStyle">@style/MyChipStile</item>
+        <item name="colorSurface">@color/purple_200</item>
+        <item name="colorOnSurfaceVariant">@color/material_dynamic_primary60</item>
+        <item name="textInputStyle">@style/MyTextInputLayoutStile</item>
+    </style>
+    <style name="MyChipStile" parent="Widget.MaterialComponents.Chip.Choice" >
+        <item name="chipBackgroundColor">?android:attr/colorMultiSelectHighlight</item>
+        <item name="rippleColor">@color/red</item>
+           </style>
+    <style name="MyTextInputLayoutStile" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+        <item name="helperTextTextColor">@color/green</item>
+        <item name="counterTextColor">@color/green</item>
+    </style>
+</resources>
