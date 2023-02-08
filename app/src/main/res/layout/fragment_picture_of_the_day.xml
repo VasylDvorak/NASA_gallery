@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,6 +20,7 @@
                 android:id="@+id/input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/search_in_wikipedia"
                 android:hint="@string/search_wiki"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
@@ -36,6 +36,7 @@
                     android:id="@+id/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/input_text"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,33 +51,63 @@
                     android:id="@+id/chipToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/today"
                     android:text="@string/today" />
-                />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipYesterday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/yesterday"
                     android:text="@string/yesterday" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipTheDayBeforeYesterday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/the_day_before_yesterday"
                     android:text="@string/the_day_before_yesterday" />
 
 
             </com.google.android.material.chip.ChipGroup>
 
-            <com.nasa_gallery.util.MyImageView
-                android:id="@+id/image_view"
+            <FrameLayout
+                android:id="@+id/PictureLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintTop_toBottomOf="@+id/chip_group"
-                app:srcCompat="@drawable/ic_no_photo_vector"
-                tools:layout_editor_absoluteX="10dp" />
+                android:layout_height="match_parent"
+                android:background="@color/material_dynamic_neutral_variant80"
+                app:layout_constraintTop_toBottomOf="@+id/chip_group">
+
+                <com.nasa_gallery.util.MyImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/picture_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/photo_of_the_day_stub"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_no_photo_vector" />
+
+                <ProgressBar
+                    android:id="@+id/loading"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/extended_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_fab"
+                android:contentDescription="@string/help"
+                android:text="@string/help"
+                app:borderWidth="@dimen/size_fab"
+                app:icon="?attr/actionModePasteDrawable"
+                app:iconTint="@color/cardview_dark_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/PictureLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -88,6 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:contentDescription="@string/navigation"
         app:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="center"
         app:hideOnScroll="true"
@@ -99,7 +131,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
+        android:contentDescription="@string/more_information"
         app:layout_anchor="@id/bottom_app_bar"
         app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="#FFFFFF" />
+        app:tint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

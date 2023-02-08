@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Theme.NASA_gallery" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Transparent system bars for edge-to-edge. -->
@@ -9,13 +9,26 @@
         <item name="colorSurface">@color/purple_200</item>
         <item name="colorOnSurfaceVariant">@color/material_dynamic_primary60</item>
         <item name="textInputStyle">@style/MyTextInputLayoutStile</item>
+        <item name="strokeColor">@color/red</item>
     </style>
-    <style name="MyChipStile" parent="Widget.MaterialComponents.Chip.Choice" >
+
+    <style name="MyChipStile" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipBackgroundColor">?android:attr/colorMultiSelectHighlight</item>
         <item name="rippleColor">@color/red</item>
-           </style>
-    <style name="MyTextInputLayoutStile" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" >
+    </style>
+
+    <style name="MyTextInputLayoutStile" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="helperTextTextColor">@color/green</item>
         <item name="counterTextColor">@color/green</item>
     </style>
+
+
+    <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/red</item>
+        <item name="backgroundTint">@color/four</item>
+        <item name="elevation">@dimen/fab_margin</item>
+        <item name="iconTint">@color/one</item>
+        <item name="rippleColor">@color/white</item>
+    </style>
+
 </resources>
