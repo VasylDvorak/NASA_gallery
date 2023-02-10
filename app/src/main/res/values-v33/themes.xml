@@ -6,7 +6,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="chipStyle">@style/MyChipStile</item>
-        <item name="colorSurface">@color/purple_200</item>
+        <item name="colorSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">@color/material_dynamic_primary60</item>
         <item name="textInputStyle">@style/MyTextInputLayoutStile</item>
         <item name="strokeColor">@color/red</item>
@@ -24,11 +24,11 @@
 
 
     <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="backgroundTint">@color/four</item>
         <item name="elevation">@dimen/fab_margin</item>
         <item name="iconTint">@color/one</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/red</item>
     </style>
 
 </resources>

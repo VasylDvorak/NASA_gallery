@@ -14,7 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="chipStyle">@style/MyChipStile</item>
-        <item name="colorSurface">@color/purple_200</item>
+        <item name="colorSurface">@color/white</item>
         <item name="rippleColor">@color/red</item>
         <item name="colorOnSurfaceVariant">@color/material_dynamic_primary60</item>
         <item name="textInputStyle">@style/MyTextInputLayoutStile</item>
@@ -31,10 +31,10 @@
     </style>
 
     <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="backgroundTint">@color/four</item>
         <item name="elevation">@dimen/fab_margin</item>
         <item name="iconTint">@color/one</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/red</item>
     </style>
 </resources>
