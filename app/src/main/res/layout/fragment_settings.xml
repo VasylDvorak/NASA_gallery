@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.circularreveal.CircularRevealFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/settings_padding">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/first_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/indigo_theme"
+            android:text="@string/indigo_theme"
+            android:textColor="?colorSecondary" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/second_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/pink_theme"
+            android:text="@string/pink_theme"
+            android:textColor="?colorSecondary" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/third_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/red"
+            android:text="@string/red"
+            android:textColor="?colorSecondary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_title"
+            android:textColor="?colorSecondary" />
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/night_or_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/change_theme"
+            android:textColor="?colorSecondary" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/auto_night_or_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/auto_theme"
+            android:text="@string/day_night_auto"
+            android:textColor="?colorSecondary" />
+
+    </RadioGroup>
+
+</com.google.android.material.circularreveal.CircularRevealFrameLayout>

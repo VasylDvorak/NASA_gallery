@@ -27,5 +27,15 @@
     <string name="about_program" tools:ignore="ExtraTranslation">О программе</string>
     <string name="message_dialog">Программа создана Василием</string>
     <string name="yes">Да</string>
+    <string name="indigo_theme">Индиго</string>
+    <string name="pink_theme">Розовый</string>
+    <string name="red">Красный</string>
+    <string name="switch_title">Переключатель ночной и дневной темы</string>
+    <string name="night_theme_now">Сейчас ночная тема</string>
+    <string name="day_theme_now">Сейчас дневная тема</string>
+    <string name="other_theme_now">Сейчас другая тема</string>
+    <string name="day_night_auto">Установить автоматически: Дневная или ночная тема</string>
+    <string name="change_theme">Поменять тему</string>
+    <string name="auto_theme">Автоматически</string>
 
 </resources>

@@ -20,11 +20,12 @@ import com.nasa_gallery.databinding.FragmentPictureOfTheDayBinding
 import com.nasa_gallery.model.PictureOfTheDayResponseData
 import com.nasa_gallery.model.retrofit.AppState
 import com.nasa_gallery.view.MainActivity
-import com.nasa_gallery.view.chips.ChipsFragment
+import com.nasa_gallery.view.settings.SettingsFragment
 import com.nasa_gallery.view_model.PictureOfTheDayViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -59,7 +60,7 @@ class PictureOfTheDayFragment : Fragment() {
                 })
             }
             extendedFab.extendMotionSpec
-            setBottomAppBar(view)
+
 
             chipToday.setOnClickListener { getDataFromServer(0) }
             chipYesterday.setOnClickListener { getDataFromServer(-1) }
@@ -70,7 +71,8 @@ class PictureOfTheDayFragment : Fragment() {
                     android.R.drawable.ic_menu_info_details, R.string.yes)
             }
         }
-
+        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
+        setBottomAppBar(view)
     }
 
     fun getDataFromServer(decriment: Int) {
@@ -90,8 +92,8 @@ class PictureOfTheDayFragment : Fragment() {
         when (item.itemId) {
             R.id.app_bar_fav -> toast("Favourite")
             R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, ChipsFragment.newInstance())
-                ?.addToBackStack(null)
+                ?.hide(this)?.add(R.id.container, SettingsFragment.newInstance())
+                ?.addToBackStack("")
                 ?.commit()
             android.R.id.home -> {
                 activity?.let {
