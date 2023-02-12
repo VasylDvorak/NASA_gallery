@@ -1,14 +1,11 @@
 package com.nasa_gallery.view.settings
 
 import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentSettingsBinding
@@ -127,9 +124,9 @@ class SettingsFragment : Fragment() {
                 putInt(MY_THEME_KEY, myTheme)
                 apply()
             }
-            activity?.recreate()
-
-    }}
+  activity?.recreate()
+     }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

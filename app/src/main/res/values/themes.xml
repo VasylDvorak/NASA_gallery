@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="ThemeNASAgallery" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="ThemeNASAgallery" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -28,14 +28,14 @@
 
     </style>
 
-    <style name="MyTabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+    <style name="MyTabLayoutStyle" parent="Widget.Material3.TabLayout">
         <item name="tabIndicatorFullWidth">false</item>
         <item name="animationMode">slide</item>
         <item name="tabIndicatorColor">@color/colorAccent</item>
 
     </style>
 
-    <style name="MyTextAppearanceBody2" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="MyTextAppearanceBody2" parent="TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/russo_one</item>
         <item name="android:fontFamily">@font/amita</item>
         <item name="android:textStyle">normal</item>
@@ -44,13 +44,13 @@
         <item name="android:letterSpacing">0.0178571429</item>
     </style>
 
-    <style name="MyShapeAppearanceSmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <style name="MyShapeAppearanceSmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerSize">20%</item>
         <item name="cornerFamily">cut</item>
 
     </style>
 
-    <style name="MyChipStile" parent="Widget.MaterialComponents.Chip.Filter">
+    <style name="MyChipStile" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">?android:attr/colorMultiSelectHighlight</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="rippleColor">@color/red</item>
@@ -59,11 +59,11 @@
         <item name="shapeAppearanceOverlay">@style/MyShapeAppearanceSmallComponent</item>
     </style>
 
-    <style name="MyTextInputLayoutStile" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="MyTextInputLayoutStile" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="helperTextTextColor">@color/green</item>
     </style>
 
-    <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.MaterialComponents.ExtendedFloatingActionButton" parent="Widget.Material3.Button">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="backgroundTint">@color/four</item>
         <item name="elevation">@dimen/fab_margin</item>
