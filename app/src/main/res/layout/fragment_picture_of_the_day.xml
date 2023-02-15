@@ -13,8 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            >
+            android:paddingEnd="10dp">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -29,7 +28,7 @@
                 app:endIconDrawable="@drawable/ic_wikipedia"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper_text"
-                app:layout_constraintBottom_toTopOf="@+id/chip_group"
+                app:layout_constraintBottom_toTopOf="@+id/PictureLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -41,46 +40,14 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipToday"
-                    android:theme ="@style/IndigoTheme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/today"
-                    android:text="@string/today" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipYesterday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/yesterday"
-                    android:text="@string/yesterday" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipTheDayBeforeYesterday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/the_day_before_yesterday"
-                    android:text="@string/the_day_before_yesterday" />
-
-
-            </com.google.android.material.chip.ChipGroup>
-
             <FrameLayout
                 android:id="@+id/PictureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/material_dynamic_neutral_variant80"
-                app:layout_constraintTop_toBottomOf="@+id/chip_group">
+                app:layout_constraintTop_toBottomOf="@+id/input_layout">
 
-                <com.nasa_gallery.util.MyImageView
+                <com.nasa_gallery.model.util.MyImageView
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/picture_size"
@@ -88,6 +55,15 @@
                     android:contentDescription="@string/photo_of_the_day_stub"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/ic_no_photo_vector" />
+
+                <WebView
+                    android:id="@+id/web_view_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/picture_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/video"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@android:drawable/ic_media_play" />
 
                 <ProgressBar
                     android:id="@+id/loading"
@@ -116,23 +92,5 @@
 
     <include layout="@layout/bottom_sheet_layout" />
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:contentDescription="@string/navigation"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/more_information"
-        app:layout_anchor="@id/bottom_app_bar"
-        app:srcCompat="@drawable/ic_plus_fab"
-        app:tint="@color/indigo_dark"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
