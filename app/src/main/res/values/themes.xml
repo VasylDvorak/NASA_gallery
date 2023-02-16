@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="ThemeNASAgallery" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="ThemeNASAgallery" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Primary brand color. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -14,26 +14,41 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="chipStyle">@style/MyChipStile</item>
-        <item name="colorSurface">@color/four</item>
+        <item name="colorSurface">@color/pink_light</item>
         <item name="rippleColor">@color/red</item>
         <item name="colorOnSurfaceVariant">@color/material_dynamic_primary60</item>
-        <item name="textInputStyle">@style/MyTextInputLayoutStile</item>
         <item name="strokeColor">@color/red</item>
-        <item name="tabStyle">@style/MyTabLayoutStyle</item>
         <item name="textAppearanceBody2">@style/MyTextAppearanceBody2</item>
         <item name="textAppearanceLabelLarge">@style/MyTextAppearanceBody2</item>
-        <item name="shapeAppearanceSmallComponent">@style/MyShapeAppearanceSmallComponent</item>
+        <item name="bottomNavigationStyle">@style/MyBottomNavigationView</item>
+        <item name="materialCardViewStyle">@style/MyCardViewStyle</item>
 
+
+    </style>
+
+    <style name="MyCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">30dp</item>
+        <item name="shapeAppearance">@style/MyShapeAppearanceMediumComponent</item>
+    </style>
+
+    <style name="MyBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/MyActiveIndicatorStyle</item>
+
+    </style>
+
+
+    <style name="MyActiveIndicatorStyle" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.None</item>
+        <item name="android:color">@color/teal_700</item>
     </style>
 
     <style name="MyTabLayoutStyle" parent="Widget.Material3.TabLayout">
         <item name="tabIndicatorFullWidth">false</item>
         <item name="animationMode">slide</item>
-        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <!--        <item name="tabIndicatorColor">@color/colorAccent</item>-->
 
     </style>
+
 
     <style name="MyTextAppearanceBody2" parent="TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/russo_one</item>
@@ -45,10 +60,17 @@
     </style>
 
     <style name="MyShapeAppearanceSmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
-        <item name="cornerSize">20%</item>
-        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">30dp</item>
+        <item name="cornerFamily">rounded</item>
 
     </style>
+
+    <style name="MyShapeAppearanceMediumComponent" parent="ShapeAppearance.Material3.Corner.Medium">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamily">rounded</item>
+
+    </style>
+
 
     <style name="MyChipStile" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">?android:attr/colorMultiSelectHighlight</item>
