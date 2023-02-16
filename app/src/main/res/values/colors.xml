@@ -16,4 +16,15 @@
     <color name="four">#981683</color>
     <color name="five">#5C9F21</color>
     <color name="line">#663b4351</color>
+    <color name="light_gray">#a7c0cd</color>
+    <color name="indigo">#6002ee</color>
+    <color name="indigo_dark">#0000ba</color>
+    <color name="indigo_light">#9c47ff</color>
+    <color name="pink">#e040fb</color>
+    <color name="pink_dark">#aa00c7</color>
+    <color name="pink_light">#ff79ff</color>
+    <color name="color1">#5A2337</color>
+    <color name="color2">#C85A12</color>
+    <color name="color3">#DA3F0E</color>
+    <color name="color4">#D6335A</color>
 </resources>
