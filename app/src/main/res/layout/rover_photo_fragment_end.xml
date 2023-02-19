@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/photo_from_mars"
-                android:textColor="@color/one"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size" />
 
             <com.nasa_gallery.model.util.MyImageView
@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/picture_size"
                 android:layout_gravity="center"
                 android:contentDescription="@string/photo_of_the_day_stub"
-                android:rotation="0"
+                android:rotation="45"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
         </LinearLayout>

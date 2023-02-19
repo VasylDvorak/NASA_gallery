@@ -2,7 +2,10 @@ package com.nasa_gallery.ui.view.navigation.earth.picture
 
 
 import android.content.Intent
+import android.graphics.RenderEffect
+import android.graphics.Shader
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -20,10 +24,14 @@ import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentPictureOfTheDayBinding
 import com.nasa_gallery.model.PictureOfTheDayResponseData
 import com.nasa_gallery.model.app.AppState
+import com.nasa_gallery.ui.view.navigation.description.BUNDLE_DESCRIPTION
+import com.nasa_gallery.ui.view.navigation.description.BUNDLE_TITLE
+import com.nasa_gallery.ui.view.navigation.description.CoordinatorFragment
 import com.nasa_gallery.ui.view.view_model.PictureOfTheDayViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 const val EARTH_BUNDLE = "earth_bundle"
 const val TODAY = 1
@@ -82,14 +90,36 @@ class PictureOfTheDayFragment : Fragment() {
                     getDataFromServer(-2)
                 }
             }
-
             extendedFab.setOnClickListener {
-                showAlertDialog(
-                    R.string.about_program, R.string.message_dialog,
-                    android.R.drawable.ic_menu_info_details, R.string.yes
-                )
+                showDialog(view)
             }
+
         }
+
+    }
+
+    private fun showDialog(view: View) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val blurEffect = RenderEffect.createBlurEffect(
+                10f, 2f,
+                Shader.TileMode.CLAMP
+            )
+            view.findViewById<CoordinatorLayout>(R.id.main_coordinator).setRenderEffect(blurEffect)
+        }
+        val builder = AlertDialog.Builder(requireContext())
+        builder
+            .setTitle(R.string.about_program)
+            .setIcon(android.R.drawable.ic_menu_info_details)
+            .setMessage(R.string.message_dialog)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                view.findViewById<CoordinatorLayout>(R.id.main_coordinator).setRenderEffect(null)
+                dialog.cancel()
+            }
+            .setOnDismissListener {
+                view.findViewById<CoordinatorLayout>(R.id.main_coordinator).setRenderEffect(null)
+            }
+        builder.create()
+        builder.show()
     }
 
     private fun getDataFromServer(decriment: Int) {
@@ -105,6 +135,7 @@ class PictureOfTheDayFragment : Fragment() {
             when (data) {
                 is AppState.Success -> {
                     loading.visibility = View.GONE
+                    group.visibility = View.VISIBLE
                     val serverResponseData = data.serverResponseData
                     val url = serverResponseData.url
                     val media_type = serverResponseData.mediaType
@@ -173,14 +204,33 @@ class PictureOfTheDayFragment : Fragment() {
         serverResponseData: PictureOfTheDayResponseData,
         bottomSheet: ConstraintLayout
     ) {
+        val titleText = serverResponseData.title
+        val explanation = serverResponseData.explanation
+
+        binding.descriptionFab.setOnClickListener {
+            showDescription(titleText, explanation)
+        }
+
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         with(bottomSheet) {
             val title = getViewById(R.id.bottomSheetDescriptionHeader) as TextView
-            title.text = serverResponseData.title
+            title.text = titleText
             val description = getViewById(R.id.bottomSheetDescription) as TextView
-            description.text = serverResponseData.explanation
+            description.text = explanation
         }
+    }
+
+    private fun showDescription(title: String?, description: String?) {
+
+
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.container, CoordinatorFragment.newInstance(Bundle().apply {
+                putString(BUNDLE_TITLE, title)
+                putString(BUNDLE_DESCRIPTION, description)
+            }))
+            ?.addToBackStack("")
+            ?.commit()
     }
 
     private fun Fragment.toast(string: String?) {
@@ -195,25 +245,6 @@ class PictureOfTheDayFragment : Fragment() {
         _binding = null
     }
 
-    fun showAlertDialog(
-        title: Int,
-        message: Int,
-        icon: Int,
-        positive_button: Int
-    ) {
-        val builder = AlertDialog.Builder(this.requireContext())
-
-        builder.run {
-            setTitle(title)
-            //set message for alert dialog
-            setMessage(message)
-            setIcon(icon)
-            setPositiveButton(positive_button) { dialogInterface, which ->
-                builder
-            }
-            show()
-        }
-    }
 
     companion object {
         fun newInstance(bundle: Bundle): PictureOfTheDayFragment {

@@ -24,7 +24,7 @@
     <string name="filter" translatable="false">Filter</string>
     <string name="empty_link" translatable="false">Link is empty</string>
     <string name="load_error" translatable="false">Ошибка загрузки</string>
-    <string name="about_program" tools:ignore="ExtraTranslation" translatable="false">О программе</string>
+    <string name="about_program" translatable="false" tools:ignore="ExtraTranslation">О программе</string>
     <string name="message_dialog" translatable="false">Программа создана Василием</string>
     <string name="yes" translatable="false">Да</string>
     <string name="indigo_theme" translatable="false">Индиго</string>
@@ -50,6 +50,10 @@
     <string name="opportunity" translatable="false">Opportunity</string>
     <string name="spirit" translatable="false">Spirit</string>
     <string name="photo_from_mars" translatable="false">Фотография с марсохода</string>
-
+    <string name="constraint" translatable="false">constraint</string>
+    <string name="coordinator" translatable="false">coordinator</string>
+    <string name="motion" translatable="false">motion</string>
+    <string name="description" translatable="false">Описание</string>
+    <string name="back" translatable="false">Назад</string>
 
 </resources>

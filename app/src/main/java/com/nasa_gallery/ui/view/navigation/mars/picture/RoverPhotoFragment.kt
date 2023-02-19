@@ -2,20 +2,26 @@ package com.nasa_gallery.ui.view.navigation.mars.picture
 
 
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import coil.load
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.RoverPhotoFragmentBinding
-
 import com.nasa_gallery.model.app.AppStateMars
 import com.nasa_gallery.ui.view.view_model.MarsViewModel
-
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 const val MARS_BUNDLE = "mars_bundle"
 const val CURIOSITY = 1
@@ -82,49 +88,65 @@ class RoverPhotoFragment : Fragment() {
 
     private fun renderData(data: AppStateMars) {
         binding.apply {
-        when (data) {
-            is AppStateMars.Success -> {
-                loading.visibility = View.GONE
-                val serverResponseData = data.serverResponseData
-                val photos_list=serverResponseData.photos
-                if (photos_list.size == 0) {
-                    daysBack -= 365
-                    switchRover()
-                    toast(getString(R.string.empty_link))
-                } else {
-                val url = photos_list[0].img_src
+            when (data) {
+                is AppStateMars.Success -> {
+                    loading.visibility = View.GONE
+                    val serverResponseData = data.serverResponseData
+                    val photos_list = serverResponseData.photos
+                    if (photos_list.size == 0) {
+                        daysBack -= 365
+                        switchRover()
+                        toast(getString(R.string.empty_link))
+                    } else {
+                        val url = photos_list[0].img_src
 
-                if (url.isNullOrEmpty()) {
-                    daysBack -= 365
-                    switchRover()
-                    toast(getString(R.string.empty_link))
-                } else {
-                    loadImage(url)
+                        if (url.isNullOrEmpty()) {
+                            daysBack -= 365
+                            switchRover()
+                            toast(getString(R.string.empty_link))
+                        } else {
+                            loadImage(url)
 
-                }}
-        }
-            is AppStateMars.Loading -> {
-                loading.visibility = View.VISIBLE
+                        }
+                    }
+                }
+                is AppStateMars.Loading -> {
+                    loading.visibility = View.VISIBLE
+                }
+                is AppStateMars.Error -> {
+                    loading.visibility = View.GONE
+                    toast(data.error.message)
+                }
             }
-            is AppStateMars.Error -> {
-                loading.visibility = View.GONE
-                toast(data.error.message)
-            }
         }
-    }}
+    }
 
 
     private fun loadImage(url: String?) {
         val imageView = binding.imageView
-        imageView.visibility = View.VISIBLE
         imageView.load(url) {
             lifecycle(this@RoverPhotoFragment)
             error(R.drawable.ic_load_error_vector)
             placeholder(R.drawable.ic_no_photo_vector)
             crossfade(true)
         }
+        showComponents()
+
     }
 
+    private fun showComponents() {
+
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(requireContext(), R.layout.rover_photo_fragment_end)
+        val transition = ChangeBounds()
+        transition.interpolator = AnticipateOvershootInterpolator(1.8f)
+        transition.duration = 3000
+        TransitionManager.beginDelayedTransition(
+            binding.constraintContainer,
+            transition
+        )
+        constraintSet.applyTo(binding.constraintContainer)
+    }
 
 
     private fun Fragment.toast(string: String?) {
