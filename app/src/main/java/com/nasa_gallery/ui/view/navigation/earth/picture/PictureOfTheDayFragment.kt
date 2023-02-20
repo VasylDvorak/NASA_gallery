@@ -135,7 +135,7 @@ class PictureOfTheDayFragment : Fragment() {
             when (data) {
                 is AppState.Success -> {
                     loading.visibility = View.GONE
-                    group.visibility = View.VISIBLE
+
                     val serverResponseData = data.serverResponseData
                     val url = serverResponseData.url
                     val media_type = serverResponseData.mediaType

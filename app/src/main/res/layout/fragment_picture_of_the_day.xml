@@ -15,7 +15,12 @@
             android:layout_height="match_parent"
             android:paddingStart="10dp"
             android:paddingEnd="10dp">
-
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75" />
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_four"
                 android:layout_width="wrap_content"
@@ -23,57 +28,63 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.1" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_five"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.55" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group"
+
+
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/wikipedia_motion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layoutDescription="@xml/motion_scene_wikipedia"
+                >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/wiki_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="input_layout, extended_fab" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/input_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/input_layout"
+                app:srcCompat="@drawable/ic_wikipedia"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/search_in_wikipedia"
                 android:hint="@string/search_wiki"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
                 app:endIconCheckable="true"
-                app:endIconDrawable="@drawable/ic_wikipedia"
+                app:endIconDrawable="@drawable/ic_search"
                 app:endIconMode="custom"
                 app:helperText="@string/wiki_helper_text"
-                app:layout_constraintBottom_toTopOf="@+id/guideline_four"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintBottom_toTopOf="@+id/image_view"
+                app:layout_constraintStart_toEndOf="parent"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/input_text"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="input_layout" />
-
+            </androidx.constraintlayout.motion.widget.MotionLayout>
 
             <FrameLayout
                 android:id="@+id/PictureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/material_dynamic_neutral_variant80"
-                app:layout_constraintTop_toBottomOf="@+id/barrier_one"
+                app:layout_constraintTop_toBottomOf="@+id/wikipedia_motion"
                 app:layout_constraintVertical_chainStyle="packed">
 
 
@@ -115,7 +126,7 @@
                 app:icon="?attr/actionModePasteDrawable"
                 app:iconTint="@color/cardview_dark_background"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.05"
+                app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintTop_toBottomOf="@+id/guideline_five" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -134,7 +145,7 @@
                 app:borderWidth="@dimen/size_fab"
                 app:icon="?attr/actionModeCopyDrawable"
                 app:iconTint="@color/cardview_dark_background"
-                app:layout_constraintHeight_percent="0.05"
+                app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
                 app:layout_constraintTop_toBottomOf="@+id/guideline_five" />
 
