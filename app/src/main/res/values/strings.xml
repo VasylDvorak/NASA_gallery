@@ -1,4 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name= "pause_left" translatable="false">M26, 23 V41</string>
+    <string name= "pause_right" translatable="false">M37, 23 L37, 32 L37, 41 </string>
+    <string name= "pause_right_play" translatable="false">M26, 23 L41, 32 L27, 41 </string>
+    <string name= "clockwise_circle" translatable="false">M32, 8 A24, 24 0 1 1 31.99 ,8 z</string>
+
     <string name="app_name" translatable="false">NASA_gallery</string>
     <string name="photo_of_the_day_stub" translatable="false">Фото дня</string>
     <string name="search_wiki" translatable="false">Найти в Википедии</string>
@@ -55,5 +60,6 @@
     <string name="motion" translatable="false">motion</string>
     <string name="description" translatable="false">Описание</string>
     <string name="back" translatable="false">Назад</string>
+    <string name="play">Проиграть</string>
 
 </resources>

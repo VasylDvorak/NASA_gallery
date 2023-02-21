@@ -24,5 +24,5 @@ class AnimationActivityStateAnimation : AppCompatActivity() {
         binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             binding.header.isSelected = binding.scrollView.canScrollVertically( -1 )
         }
-
+      //  binding.header.animate().rotationX(1.0f)
 }}

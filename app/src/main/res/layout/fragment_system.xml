@@ -41,6 +41,19 @@
         android:background="@drawable/ic_baseline_rotate_left_24"
         app:layout_constraintBaseline_toTopOf="@+id/guideline_horizontal_two_motion"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_motion" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id= "@+id/play_pause_circle"
+        android:layout_width= "wrap_content"
+        android:layout_height= "wrap_content"
+        android:background= "@drawable/play_pause_circle"
+        android:backgroundTint= "@color/colorAccent"
+        android:checked= "true"
+        android:contentDescription= "@string/play"
+        android:thumb= "@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_motion"
+        />
+
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
