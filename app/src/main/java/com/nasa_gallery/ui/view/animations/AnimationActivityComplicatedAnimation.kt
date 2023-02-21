@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.nasa_gallery.databinding.ActivityAnimationComplicatedAnimationBinding
 
-class AnimationActivity : AppCompatActivity() {
+class AnimationActivityComplicatedAnimation : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnimationComplicatedAnimationBinding
     var isFlag = false
