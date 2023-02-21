@@ -25,7 +25,7 @@
 
 
         <activity
-            android:name=".ui.view.animations.AnimationActivityStateAnimation"
+            android:name=".ui.view.animations.AnimationActivityConstraintSet"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true">
             <intent-filter>
