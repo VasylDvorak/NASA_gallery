@@ -35,15 +35,18 @@ TransitionManager.beginDelayedTransition(binding.constraintContainer, changeBoun
             val constraintSetStart = ConstraintSet()
             val constraintSetEnd = ConstraintSet()
             constraintSetStart.clone(this, R.layout.activity_animation_constraint_set_start)
-            constraintSetEnd.clone(this, R.layout.activity_animation_constraint_set_end)
+         //   constraintSetEnd.clone(this, R.layout.activity_animation_constraint_set_end)
 
             if(isFlag){
-constraintSetEnd.applyTo(binding.constraintContainer)
-
+// constraintSetEnd.applyTo(binding.constraintContainer)
+                constraintSetStart.connect(R.id.title, ConstraintSet.RIGHT, R.id.backgroundImage, ConstraintSet.RIGHT)
+              //  constraintSetStart.clear(R.id.title, ConstraintSet.RIGHT)
             }else{
+                constraintSetStart.connect(R.id.title, ConstraintSet.RIGHT, R.id.backgroundImage, ConstraintSet.LEFT)
 
-                constraintSetStart.applyTo(binding.constraintContainer)
             }
+            constraintSetStart.applyTo(binding.constraintContainer)
+
         }
 
 
