@@ -4,39 +4,46 @@ import android.os.Bundle
 
 import android.view.Gravity
 import android.widget.FrameLayout
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.transition.ArcMotion
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
+import com.nasa_gallery.databinding.ActivityAnimationMixBinding
 import com.nasa_gallery.databinding.ActivityAnimationTraectoryBinding
 
 class AnimationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnimationTraectoryBinding
+    private lateinit var binding: ActivityAnimationMixBinding
     var isFlag = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnimationTraectoryBinding.inflate(layoutInflater)
+        binding = ActivityAnimationMixBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+val titles:MutableList <String> = ArrayList()
+        for(i in 0..4){
+            titles.add("Item $i")
+        }
+
 
 
         binding.button.setOnClickListener {
             isFlag = !isFlag
-            val params = it.layoutParams as FrameLayout.LayoutParams
-            var changeBounds = ChangeBounds()
-            changeBounds.duration = 2000L
-            changeBounds.setPathMotion(ArcMotion())
-            TransitionManager.beginDelayedTransition(binding.root, changeBounds)
-            if (isFlag) {
-                params.gravity =Gravity.TOP or Gravity.START
-            } else {
-                params.gravity = Gravity.BOTTOM or Gravity.END
+            TransitionManager.beginDelayedTransition(binding.root)
+            binding.transitionContainer.removeAllViews()
+titles.shuffle()
+titles.forEach{
+    binding.transitionContainer.addView(TextView(this).apply{
+        text = it
+        ViewCompat.setTransitionName(this, it) // задали псевданим
 
-            }
-            binding.button.layoutParams = params
+    })
 
+}
         }
     }
 }
