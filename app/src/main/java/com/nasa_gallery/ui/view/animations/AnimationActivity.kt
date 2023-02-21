@@ -2,77 +2,58 @@ package com.nasa_gallery.ui.view.animations
 
 import android.graphics.Rect
 import android.os.Bundle
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.Explode
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.ActivityAnimationSecondBinding
+import com.nasa_gallery.databinding.ActivityAnimationZoomBinding
 
 class AnimationActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAnimationSecondBinding
+    private lateinit var binding: ActivityAnimationZoomBinding
     var isFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAnimationSecondBinding.inflate(layoutInflater)
+        binding = ActivityAnimationZoomBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        isFlag = !isFlag
+        binding.imageView.setOnClickListener {
+            isFlag = !isFlag
+            val params = it.layoutParams as LinearLayout.LayoutParams
+            val transitionSet = TransitionSet()
+val changeImageTransform = ChangeImageTransform()
+            val changeBounds = ChangeBounds()
+            changeBounds.duration =2000L
+            changeImageTransform.duration =2000L
+            transitionSet.addTransition(changeBounds) // важен порядок
+            transitionSet.addTransition(changeImageTransform)
 
-//        val myAutoTransition = TransitionSet()
-//        // myAutoTransition.ordering = TransitionSet.ORDERING_TOGETHER
-//        myAutoTransition.ordering = TransitionSet.ORDERING_SEQUENTIAL
-//        val fade = Slide(Gravity.END)
-//        fade.duration = 1000L
-//        val changeBounds = ChangeBounds()
-//        changeBounds.duration = 1000L
-//        myAutoTransition.addTransition(changeBounds)
-//        myAutoTransition.addTransition(fade)
-//        myAutoTransition.duration = 2000L
-//        TransitionManager.beginDelayedTransition(binding.transitionContainer, myAutoTransition)
 
-        binding.recycleView.adapter = Adapter()
-
-    }
-
-    inner class Adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            return MyViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.activiry_animation_explode_item,
-                    parent,
-                    false
-                ) as View
-            )
-        }
-
-        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            holder.itemView.setOnClickListener {
-                val rect = Rect()
-                it.getGlobalVisibleRect(rect)
-                val explode = Explode()
-                explode.duration = 2000L
-                explode.epicenterCallback = object : Transition.EpicenterCallback() {
-                    override fun onGetEpicenter(transition: Transition): Rect {
-                        return rect
-                    }
-                }
-                TransitionManager.beginDelayedTransition(binding.recycleView, explode)
-                binding.recycleView.adapter = null
+            TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+            if(isFlag){
+                params.height = LinearLayout.LayoutParams.MATCH_PARENT
+                (it as ImageView).scaleType = ImageView.ScaleType.CENTER_CROP
             }
-        }
+else{
+                params.height = LinearLayout.LayoutParams.WRAP_CONTENT
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                it.layoutParams = params
 
-        override fun getItemCount(): Int {
-            return 32
-        }
-
-        inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
-    }
 }
+
+
+    }
+}}
