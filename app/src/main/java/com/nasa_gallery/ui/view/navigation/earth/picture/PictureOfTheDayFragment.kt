@@ -11,6 +11,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,8 +20,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentPictureOfTheDayBinding
 import com.nasa_gallery.model.PictureOfTheDayResponseData
@@ -51,6 +59,13 @@ class PictureOfTheDayFragment : Fragment() {
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this)[PictureOfTheDayViewModel::class.java]
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        exitTransition = MaterialFadeThrough()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -197,8 +212,40 @@ class PictureOfTheDayFragment : Fragment() {
             placeholder(R.drawable.ic_no_photo_vector)
             crossfade(true)
         }
+        showComponentsZoom()
     }
 
+    var isFlag = false
+    private fun showComponentsZoom() {
+
+        binding.imageView.setOnClickListener {
+            val params = it.layoutParams as FrameLayout.LayoutParams
+            isFlag = !isFlag
+            val transitionSet = TransitionSet()
+            val changeImageTransform = ChangeImageTransform()
+            val changeBounds = ChangeBounds()
+            changeBounds.duration = 2000L
+            changeBounds.setPathMotion(MaterialArcMotion())
+            changeImageTransform.duration = 2000L
+            transitionSet.addTransition(changeBounds) // важен порядок
+            transitionSet.addTransition(changeImageTransform)
+            TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+            params.apply {
+            if (isFlag) {
+                gravity =Gravity.TOP or Gravity.START
+                height = FrameLayout.LayoutParams.MATCH_PARENT+500
+                width = FrameLayout.LayoutParams.MATCH_PARENT+500
+                (it as ImageView).scaleType = ImageView.ScaleType.CENTER_CROP
+            } else {
+                gravity = Gravity.BOTTOM or Gravity.END
+                height = FrameLayout.LayoutParams.WRAP_CONTENT
+                width = FrameLayout.LayoutParams.WRAP_CONTENT
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                it.layoutParams = params
+            }
+            binding.imageView.layoutParams = params
+        }
+    }}
 
     private fun setBottomSheetBehavior(
         serverResponseData: PictureOfTheDayResponseData,

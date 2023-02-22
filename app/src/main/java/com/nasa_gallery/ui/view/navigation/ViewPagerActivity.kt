@@ -30,6 +30,7 @@ class ViewPagerActivity : AppCompatActivity() {
                 0 -> "Земля"
                 1 -> "Марс"
                 2 -> "Система"
+                3 -> "Картина"
                 else -> "Земля"
             }
         }.attach()

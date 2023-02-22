@@ -7,12 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
 import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.RoverPhotoFragmentBinding
@@ -130,23 +134,10 @@ class RoverPhotoFragment : Fragment() {
             placeholder(R.drawable.ic_no_photo_vector)
             crossfade(true)
         }
-        showComponents()
+
 
     }
 
-    private fun showComponents() {
-
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(requireContext(), R.layout.rover_photo_fragment_end)
-        val transition = ChangeBounds()
-        transition.interpolator = AnticipateOvershootInterpolator(1.8f)
-        transition.duration = 3000
-        TransitionManager.beginDelayedTransition(
-            binding.constraintContainer,
-            transition
-        )
-        constraintSet.applyTo(binding.constraintContainer)
-    }
 
 
     private fun Fragment.toast(string: String?) {

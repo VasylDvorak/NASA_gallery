@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.transition.platform.Hold
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentMarsBinding
 
@@ -13,6 +15,21 @@ import com.nasa_gallery.databinding.FragmentMarsBinding
 class MarsFragment : Fragment() {
     private var _binding: FragmentMarsBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        reenterTransition = MaterialSharedAxis(
+            MaterialSharedAxis.Z, false
+        )
+        exitTransition = MaterialSharedAxis(
+            MaterialSharedAxis.Z, true
+        )
+
+        exitTransition = Hold()
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +46,7 @@ class MarsFragment : Fragment() {
         binding.viewPager.adapter = ViewPagerAdapterForMarsFragment(this)
 
         bindTabLayout()
+
     }
 
     private fun bindTabLayout() {
@@ -44,6 +62,7 @@ class MarsFragment : Fragment() {
             }
         }.attach()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
