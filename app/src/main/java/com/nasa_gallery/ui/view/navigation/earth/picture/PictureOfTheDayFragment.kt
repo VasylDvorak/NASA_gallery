@@ -11,6 +11,8 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,6 +20,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.graphics.rotationMatrix
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -47,6 +50,8 @@ const val YESTERDAY = 2
 const val THE_DAY_BEFORE_YESTERDAY = 3
 const val IMAGE = "image"
 const val VIDEO = "video"
+const val hartEffect = 500
+const val duration = 2000L
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -221,31 +226,36 @@ class PictureOfTheDayFragment : Fragment() {
         binding.imageView.setOnClickListener {
             val params = it.layoutParams as FrameLayout.LayoutParams
             isFlag = !isFlag
+
             val transitionSet = TransitionSet()
             val changeImageTransform = ChangeImageTransform()
             val changeBounds = ChangeBounds()
-            changeBounds.duration = 2000L
+
+            changeBounds.duration = duration
             changeBounds.setPathMotion(MaterialArcMotion())
-            changeImageTransform.duration = 2000L
+            changeBounds.interpolator = AnticipateOvershootInterpolator(1.0f)
+            changeImageTransform.duration = duration
             transitionSet.addTransition(changeBounds) // важен порядок
             transitionSet.addTransition(changeImageTransform)
+
             TransitionManager.beginDelayedTransition(binding.root, transitionSet)
             params.apply {
-            if (isFlag) {
-                gravity =Gravity.TOP or Gravity.START
-                height = FrameLayout.LayoutParams.MATCH_PARENT+500
-                width = FrameLayout.LayoutParams.MATCH_PARENT+500
-                (it as ImageView).scaleType = ImageView.ScaleType.CENTER_CROP
-            } else {
-                gravity = Gravity.BOTTOM or Gravity.END
-                height = FrameLayout.LayoutParams.WRAP_CONTENT
-                width = FrameLayout.LayoutParams.WRAP_CONTENT
-                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-                it.layoutParams = params
+                if (isFlag) {
+                    gravity = Gravity.TOP or Gravity.CENTER
+                    height = FrameLayout.LayoutParams.MATCH_PARENT + hartEffect
+                    width = FrameLayout.LayoutParams.MATCH_PARENT + hartEffect
+                    (it as ImageView).scaleType = ImageView.ScaleType.CENTER_CROP
+                } else {
+                    gravity = Gravity.BOTTOM or Gravity.CENTER
+                    height = FrameLayout.LayoutParams.WRAP_CONTENT
+                    width = FrameLayout.LayoutParams.WRAP_CONTENT
+                    binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                    it.layoutParams = params
+                }
+                binding.imageView.layoutParams = params
             }
-            binding.imageView.layoutParams = params
         }
-    }}
+    }
 
     private fun setBottomSheetBehavior(
         serverResponseData: PictureOfTheDayResponseData,
