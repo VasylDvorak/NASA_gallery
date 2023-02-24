@@ -9,8 +9,18 @@ import com.nasa_gallery.databinding.ActivityRecyclerItemHeaderBinding
 import com.nasa_gallery.databinding.ActivityRecyclerItemMarsBinding
 
 class RecyclerAdapter(
-    private var listData: MutableList<Data>,
+   private var listData: List<Data>, val callbackAdd: AddItem, val callbackRemove: RemoveItem
 ) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+
+    fun setListDataRemove(listDataNew: List<Data>, position: Int){
+        listData = listDataNew
+        notifyItemRemoved(position)
+    }
+    fun setListDataAdd(listDataNew: List<Data>, position: Int){
+        listData = listDataNew
+        notifyItemInserted(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
@@ -46,21 +56,29 @@ class RecyclerAdapter(
         return listData[position].type
     }
 
+
+
+   inner class MarsViewHolder(val binding: ActivityRecyclerItemMarsBinding) :
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.name.text = data.name
+            binding.addItemImageView.setOnClickListener{
+                callbackAdd.add(layoutPosition)
+            }
+
+            binding.removeItemImageView.setOnClickListener{
+                callbackRemove.remove(layoutPosition)
+            }
+        }
+
+    }
+
     class EarthViewHolder(val binding: ActivityRecyclerItemEarthBinding) :
         BaseViewHolder(binding.root) {
         override fun bind(data: Data) {
             binding.name.text = data.name
         }
     }
-
-    class MarsViewHolder(val binding: ActivityRecyclerItemMarsBinding) :
-        BaseViewHolder(binding.root) {
-        override fun bind(data: Data) {
-            binding.name.text = data.name
-        }
-
-    }
-
 
     class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
         BaseViewHolder(binding.root) {
