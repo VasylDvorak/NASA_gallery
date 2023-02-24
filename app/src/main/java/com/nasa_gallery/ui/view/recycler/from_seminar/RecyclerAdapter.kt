@@ -73,23 +73,23 @@ class RecyclerAdapter(
             binding.moveItemUp.setOnClickListener {
            // пепеместить во View Model repository
 
-                // обработать выход за пределы списка и рне налезть на заголовок
+                        if (layoutPosition >1){
 listData.removeAt(layoutPosition).apply {
     listData.add(layoutPosition -1, this)
 }
             notifyItemMoved(layoutPosition, layoutPosition -1)
 
-            }
+            }}
 
                 binding.moveItemDown.setOnClickListener {
                     // пепеместить во View Model repository
-                    // обработать выход за пределы списка
+                       if (listData.size >(layoutPosition+1)){
                     listData.removeAt(layoutPosition).apply {
                         listData.add(layoutPosition +1, this)
                     }
                     notifyItemMoved(layoutPosition, layoutPosition +1)
 
-                }
+                }}
         }
 
     }
