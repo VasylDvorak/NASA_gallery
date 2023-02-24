@@ -1,6 +1,7 @@
 package com.nasa_gallery.ui.view.recycler.from_seminar
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nasa_gallery.databinding.ActivityRecyclerItemEarthBinding
@@ -9,8 +10,8 @@ import com.nasa_gallery.databinding.ActivityRecyclerItemMarsBinding
 
 class RecyclerAdapter(
     private var listData: MutableList<Data>,
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_EARTH -> {
                 val binding =
@@ -32,18 +33,8 @@ class RecyclerAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            TYPE_EARTH -> {
-                (holder as EarthViewHolder).bind(listData[position])
-            }
-            TYPE_MARS -> {
-                (holder as MarsViewHolder).bind(listData[position])
-            }
-            else -> {
-                (holder as HeaderViewHolder).bind(listData[position])
-            }
-        }
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind(listData[position])
     }
 
     override fun getItemCount(): Int {
@@ -56,26 +47,31 @@ class RecyclerAdapter(
     }
 
     class EarthViewHolder(val binding: ActivityRecyclerItemEarthBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Data) {
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
             binding.name.text = data.name
         }
     }
 
     class MarsViewHolder(val binding: ActivityRecyclerItemMarsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Data) {
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
             binding.name.text = data.name
         }
 
     }
-}
 
-class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun bind(data: Data) {
-        binding.name.text = data.name
+
+    class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
+        BaseViewHolder(binding.root) {
+        override fun bind(data: Data) {
+            binding.name.text = data.name
+        }
     }
-}
+
+    abstract class BaseViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
+        abstract fun bind(data: Data)
+    }}
 
 
