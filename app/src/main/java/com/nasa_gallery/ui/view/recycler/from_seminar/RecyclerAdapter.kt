@@ -1,16 +1,20 @@
 package com.nasa_gallery.ui.view.recycler.from_seminar
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuView.ItemView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.nasa_gallery.R
 import com.nasa_gallery.databinding.ActivityRecyclerItemEarthBinding
 import com.nasa_gallery.databinding.ActivityRecyclerItemHeaderBinding
 import com.nasa_gallery.databinding.ActivityRecyclerItemMarsBinding
 
 class RecyclerAdapter(
    private var listData: MutableList<Pair<Data, Boolean>>, val callbackAdd: AddItem, val callbackRemove: RemoveItem
-) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>() {
+) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
     fun setListDataRemove(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int){
         listData = listDataNew
@@ -59,7 +63,7 @@ class RecyclerAdapter(
 
 
    inner class MarsViewHolder(val binding: ActivityRecyclerItemMarsBinding) :
-        BaseViewHolder(binding.root) {
+        BaseViewHolder(binding.root){
         override fun bind(data: Pair<Data, Boolean>) {
             binding.name.text = data.first.name
             binding.addItemImageView.setOnClickListener{
@@ -101,7 +105,18 @@ notifyItemChanged(layoutPosition)
             }
         }
 
-    }
+       override fun onItemSelected() {
+
+           itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color3))
+       }
+
+       override fun onItemClear() {
+           itemView.setBackgroundColor(ContextCompat.getColor(itemView.context,
+               R.color.white
+           ))
+       }
+
+   }
 
     class EarthViewHolder(val binding: ActivityRecyclerItemEarthBinding) :
         BaseViewHolder(binding.root) {
@@ -118,8 +133,31 @@ notifyItemChanged(layoutPosition)
     }
 
     abstract class BaseViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
+        RecyclerView.ViewHolder(view), ItemTouchHelperViewHolder {
         abstract fun bind(data: Pair<Data, Boolean>)
-    }}
+        override fun onItemSelected() {
+
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color3))
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context,
+                R.color.white
+            ))
+        }
+
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        listData.removeAt(fromPosition).apply {
+            listData.add(toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        callbackRemove.remove(position)
+    }
+}
 
 

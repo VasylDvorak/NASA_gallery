@@ -2,6 +2,7 @@ package com.nasa_gallery.ui.view.recycler.from_seminar
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.nasa_gallery.databinding.ActivityRecyclerBinding
 
 class RecyclerActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class RecyclerActivity : AppCompatActivity() {
         adapter = RecyclerAdapter(data, callbackAdd, callbackRemove)
         binding.recyclerView.adapter = adapter
 
-
+ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
     }
 
     val callbackAdd = AddItem {
