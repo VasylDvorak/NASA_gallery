@@ -85,7 +85,7 @@ class RecyclerActivityAdapter(
             itemView.findViewById<ImageView>(R.id.moveItemUp).setOnClickListener { moveUp() }
             itemView.findViewById<TextView>(R.id.marsDescriptionTextView).visibility =
                 if (data.second) View.VISIBLE else View.GONE
-            itemView.findViewById<TextView>(R.id.marsTextView).setOnClickListener { toggleText() }
+            itemView.findViewById<TextView>(R.id.name).setOnClickListener { toggleText() }
             itemView.findViewById<ImageView>(R.id.dragHandleImageView).setOnTouchListener { _, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                     dragListener.onStartDrag(this)

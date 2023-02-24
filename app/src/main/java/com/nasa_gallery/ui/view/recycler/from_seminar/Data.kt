@@ -5,7 +5,7 @@ const val TYPE_MARS = 1
 const val TYPE_HEADER = 2
 data class Data(
     val type: Int = TYPE_MARS,
-    val someText: String = "Text",
+    val name: String = "Text",
     val someDescription: String? = "Description"
 
 )
