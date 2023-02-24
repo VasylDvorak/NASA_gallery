@@ -26,14 +26,14 @@ class RecyclerActivity : AppCompatActivity() {
        adapter = RecyclerAdapter(data, callbackAdd , callbackRemove)
 binding.recyclerView.adapter = adapter
 }
-// обработать в репозитории через ViewModel
-val callbackAdd = AddItem {
 
+val callbackAdd = AddItem {
+// обработать в репозитории через ViewModel
 data.add(it, Data(TYPE_MARS, "Mars NEW"  ))
 adapter.setListDataAdd(data, it)
 }
     val callbackRemove = RemoveItem {
-
+// обработать в репозитории через ViewModel
         data.removeAt(it)
         adapter.setListDataRemove(data, it)
     }
