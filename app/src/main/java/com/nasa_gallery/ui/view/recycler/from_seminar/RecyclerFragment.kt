@@ -1,15 +1,20 @@
 package com.nasa_gallery.ui.view.recycler.from_seminar
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.nasa_gallery.databinding.ActivityRecyclerBinding
+import com.nasa_gallery.databinding.FragmentRecyclerBinding
 import com.nasa_gallery.ui.view.recycler.from_lesson.Data.Companion.TYPE_HEADER
 import com.nasa_gallery.ui.view.recycler.from_lesson.Data.Companion.TYPE_MARS
 
-class RecyclerActivity : AppCompatActivity() {
+class RecyclerFragment : Fragment() {
 
-    private lateinit var binding: ActivityRecyclerBinding
+    private var _binding: FragmentRecyclerBinding? = null
+    private val binding get() = _binding!!
+
 
     val data = arrayListOf(
         Pair(Data(0, TYPE_HEADER, "Заголовок"), false),
@@ -54,14 +59,20 @@ class RecyclerActivity : AppCompatActivity() {
 
 
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRecyclerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRecyclerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
         adapter = RecyclerAdapter(data, callbackAdd, callbackRemove)
         binding.recyclerView.adapter = adapter
 
@@ -89,5 +100,9 @@ ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.r
 // обработать в репозитории через ViewModel
         data.removeAt(it)
         adapter.setListDataRemove(data, it)
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

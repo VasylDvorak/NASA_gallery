@@ -8,7 +8,7 @@ import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
 
-class ViewPagerAdapter(fragment: FragmentActivity) :
+class ViewPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
     private val fragments = arrayOf(MarsFragment(), SystemFragment(), PictureFragment())

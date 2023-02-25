@@ -10,9 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nasa_gallery.R
-import com.nasa_gallery.databinding.ActivityRecyclerItemEarthBinding
-import com.nasa_gallery.databinding.ActivityRecyclerItemHeaderBinding
-import com.nasa_gallery.databinding.ActivityRecyclerItemMarsBinding
+import com.nasa_gallery.databinding.*
 import com.nasa_gallery.ui.view.recycler.from_seminar.diffutil.Change
 import com.nasa_gallery.ui.view.recycler.from_seminar.diffutil.DiffUtilCallback
 import com.nasa_gallery.ui.view.recycler.from_seminar.diffutil.createCombinedPayload
@@ -40,17 +38,17 @@ class RecyclerAdapter(
         return when (viewType) {
             TYPE_EARTH -> {
                 val binding =
-                    ActivityRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context))
+                    FragmentRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context))
                 EarthViewHolder(binding)
             }
             TYPE_MARS -> {
                 val binding =
-                    ActivityRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context))
+                    FragmentRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context))
                 MarsViewHolder(binding)
             }
             else -> {
                 val binding =
-                    ActivityRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context))
+                    FragmentRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context))
                 HeaderViewHolder(binding)
             }
         }
@@ -88,7 +86,7 @@ holder.itemView.findViewById<TextView>(R.id.name).text = createCombinedPayload.n
 
 
 
-   inner class MarsViewHolder(val binding: ActivityRecyclerItemMarsBinding) :
+   inner class MarsViewHolder(val binding: FragmentRecyclerItemMarsBinding) :
         BaseViewHolder(binding.root){
         override fun bind(data: Pair<Data, Boolean>) {
             binding.name.text = data.first.name
@@ -144,14 +142,14 @@ notifyItemChanged(layoutPosition)
 
    }
 
-    class EarthViewHolder(val binding: ActivityRecyclerItemEarthBinding) :
+    class EarthViewHolder(val binding: FragmentRecyclerItemEarthBinding) :
         BaseViewHolder(binding.root) {
         override fun bind(data: Pair<Data, Boolean>) {
             binding.name.text = data.first.name
         }
     }
 
-    class HeaderViewHolder(val binding: ActivityRecyclerItemHeaderBinding) :
+    class HeaderViewHolder(val binding: FragmentRecyclerItemHeaderBinding) :
         BaseViewHolder(binding.root) {
         override fun bind(data: Pair<Data, Boolean>) {
             binding.name.text = data.first.name
