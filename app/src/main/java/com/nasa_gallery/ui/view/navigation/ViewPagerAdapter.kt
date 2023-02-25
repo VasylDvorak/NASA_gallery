@@ -7,11 +7,13 @@ import com.nasa_gallery.ui.view.navigation.mars.MarsFragment
 import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
+import com.nasa_gallery.ui.view.recycler.from_seminar.RecyclerFragment
 
-class ViewPagerAdapter(fragment: FragmentActivity) :
+class ViewPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    private val fragments = arrayOf(MarsFragment(), SystemFragment(), PictureFragment())
+    private val fragments = arrayOf(MarsFragment(), SystemFragment(),
+        PictureFragment(), RecyclerFragment())
 
 
     override fun getItemCount(): Int {

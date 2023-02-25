@@ -4,9 +4,10 @@ const val TYPE_EARTH = 0
 const val TYPE_MARS = 1
 const val TYPE_HEADER = 2
 data class Data(
-    val id:Int =0,
-    val type: Int = TYPE_MARS,
-    val name: String = "Text",
-    val someDescription: String? = "Description"
+    var id:Int =0,
+    var type: Int = TYPE_MARS,
+    var priority:Int =0,
+    var name: String = "Text",
+    var someDescription: String? = "Description"
 
 )

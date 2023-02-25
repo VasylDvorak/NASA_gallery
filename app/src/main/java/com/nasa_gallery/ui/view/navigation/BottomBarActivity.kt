@@ -11,6 +11,7 @@ import com.nasa_gallery.ui.view.navigation.mars.MarsFragment
 import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
+import com.nasa_gallery.ui.view.recycler.from_seminar.RecyclerFragment
 
 class BottomBarActivity : AppCompatActivity() {
 
@@ -34,6 +35,9 @@ class BottomBarActivity : AppCompatActivity() {
                 }
                 R.id.action_view_picture -> {
                     navigateTo(PictureFragment())
+                }
+                R.id.action_view_notes -> {
+                    navigateTo(RecyclerFragment())
                 }
             }
             true

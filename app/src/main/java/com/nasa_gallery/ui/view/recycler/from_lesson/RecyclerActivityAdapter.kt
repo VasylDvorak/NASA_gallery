@@ -22,14 +22,14 @@ class RecyclerActivityAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_EARTH -> EarthViewHolder(
-                inflater.inflate(R.layout.activity_recycler_item_earth, parent, false) as View
+                inflater.inflate(R.layout.fragment_recycler_item_earth, parent, false) as View
             )
             TYPE_MARS ->
                 MarsViewHolder(
-                    inflater.inflate(R.layout.activity_recycler_item_mars, parent, false) as View
+                    inflater.inflate(R.layout.fragment_recycler_item_mars, parent, false) as View
                 )
             else -> HeaderViewHolder(
-                inflater.inflate(R.layout.activity_recycler_item_header, parent, false) as View
+                inflater.inflate(R.layout.fragment_recycler_item_header, parent, false) as View
             )
         }
     }
@@ -69,8 +69,8 @@ class RecyclerActivityAdapter(
 
         override fun bind(data: Pair<Data, Boolean>) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                itemView.findViewById<TextView>(R.id.descriptionTextView).text = data.first.someDescription
-                itemView.findViewById<ImageView>(R.id.wikiImageView).setOnClickListener { onListItemClickListener.onItemClick(data.first) }
+        //        itemView.findViewById<TextView>(R.id.descriptionTextView).text = data.first.someDescription
+          //      itemView.findViewById<ImageView>(R.id.wikiImageView).setOnClickListener { onListItemClickListener.onItemClick(data.first) }
             }
         }
     }
