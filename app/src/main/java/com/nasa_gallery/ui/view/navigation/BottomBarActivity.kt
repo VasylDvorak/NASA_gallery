@@ -11,7 +11,7 @@ import com.nasa_gallery.ui.view.navigation.mars.MarsFragment
 import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
-import com.nasa_gallery.ui.view.recycler.from_seminar.RecyclerFragment
+import com.nasa_gallery.ui.view.recycler.notes.RecyclerFragment
 
 class BottomBarActivity : AppCompatActivity() {
 
