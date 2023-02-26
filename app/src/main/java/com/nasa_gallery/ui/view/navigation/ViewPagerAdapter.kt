@@ -1,13 +1,12 @@
 package com.nasa_gallery.ui.view.navigation
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nasa_gallery.ui.view.navigation.mars.MarsFragment
 import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
-import com.nasa_gallery.ui.view.recycler.from_seminar.RecyclerFragment
+import com.nasa_gallery.ui.view.recycler.notes.RecyclerFragment
 
 class ViewPagerAdapter(fragment: Fragment) :
     FragmentStateAdapter(fragment) {

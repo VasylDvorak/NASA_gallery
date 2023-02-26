@@ -1,4 +1,4 @@
-package com.nasa_gallery.ui.view.recycler.from_seminar
+package com.nasa_gallery.ui.view.recycler.notes
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +18,8 @@ class ItemTouchHelperCallback(private val callback: ItemTouchHelperAdapter) :
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-val swipe = ItemTouchHelper.END or ItemTouchHelper.START
-        val drag= ItemTouchHelper.UP or ItemTouchHelper.DOWN
+        val swipe = ItemTouchHelper.END or ItemTouchHelper.START
+        val drag = ItemTouchHelper.UP or ItemTouchHelper.DOWN
         return makeMovementFlags(drag, swipe)
     }
 
@@ -28,7 +28,9 @@ val swipe = ItemTouchHelper.END or ItemTouchHelper.START
         source: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        callback.onItemMove(source.adapterPosition, target.adapterPosition)
+        if (target.adapterPosition > 0) {
+            callback.onItemMove(source.adapterPosition, target.adapterPosition)
+        }
         return true
     }
 
@@ -37,9 +39,9 @@ val swipe = ItemTouchHelper.END or ItemTouchHelper.START
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-viewHolder?.let{
-    (it as RecyclerAdapter.BaseViewHolder).onItemSelected()
-}
+        viewHolder?.let {
+            (it as RecyclerAdapter.BaseViewHolder).onItemSelected()
+        }
 
 
         super.onSelectedChanged(viewHolder, actionState)
@@ -48,6 +50,6 @@ viewHolder?.let{
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
 
-            (viewHolder as RecyclerAdapter.BaseViewHolder).onItemClear()
+        (viewHolder as RecyclerAdapter.BaseViewHolder).onItemClear()
     }
 }

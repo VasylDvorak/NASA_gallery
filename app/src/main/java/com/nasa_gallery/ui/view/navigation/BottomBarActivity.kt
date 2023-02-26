@@ -11,7 +11,8 @@ import com.nasa_gallery.ui.view.navigation.mars.MarsFragment
 import com.nasa_gallery.ui.view.navigation.picture_artist.PictureFragment
 
 import com.nasa_gallery.ui.view.navigation.system.SystemFragment
-import com.nasa_gallery.ui.view.recycler.from_seminar.RecyclerFragment
+import com.nasa_gallery.ui.view.recycler.notes.RecyclerFragment
+import com.nasa_gallery.ui.view.recycler.notes.RecyclerFragment.Companion.dataSize
 
 class BottomBarActivity : AppCompatActivity() {
 
@@ -65,6 +66,13 @@ class BottomBarActivity : AppCompatActivity() {
         badgeSystem.apply {
             number = 3
             maxCharacterCount = 2
+            badgeGravity = BadgeDrawable.TOP_END
+        }
+
+        val badgeNotes = binding.bottomNavigationView.getOrCreateBadge(R.id.action_view_notes)
+        badgeNotes.apply {
+            number = dataSize
+            maxCharacterCount = 3
             badgeGravity = BadgeDrawable.TOP_END
         }
 
