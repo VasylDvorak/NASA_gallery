@@ -29,7 +29,7 @@
                 android:textColor="@color/one"
                 android:textSize="@dimen/text_size" />
 
-            <com.nasa_gallery.model.util.MyImageView
+            <com.nasa_gallery.domain.util.MyImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/picture_size"

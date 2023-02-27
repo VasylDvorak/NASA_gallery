@@ -35,7 +35,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior=".ui.view.navigation.description.NestedBehavior"
+        app:layout_behavior=".ui.pages.navigation.description.NestedBehavior"
         tools:context=".ScrollingActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,7 @@
         android:contentDescription="@string/back"
         android:text="@string/back"
         app:icon="@drawable/ic_back_fab"
-        app:layout_behavior=".ui.view.navigation.description.MyBehaviorButton" />
+        app:layout_behavior=".ui.pages.navigation.description.MyBehaviorButton" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
