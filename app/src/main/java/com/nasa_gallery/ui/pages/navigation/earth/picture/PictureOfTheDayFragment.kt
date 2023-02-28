@@ -8,7 +8,6 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -43,12 +42,12 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentPictureOfTheDayBinding
-import com.nasa_gallery.domain.entity.model.PictureOfTheDayResponseData
 import com.nasa_gallery.domain.Application.AppState
+import com.nasa_gallery.domain.entity.model.PictureOfTheDayResponseData
+import com.nasa_gallery.domain.entity.view_model.PictureOfTheDayViewModel
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_DESCRIPTION
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_TITLE
 import com.nasa_gallery.ui.pages.navigation.description.CoordinatorFragment
-import com.nasa_gallery.domain.entity.view_model.PictureOfTheDayViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -294,33 +293,53 @@ class PictureOfTheDayFragment : Fragment() {
         description.text = explanation
         description.typeface = Typeface.createFromAsset(requireActivity().assets, "Aloevera.ttf")
 
-val spanned: Spanned
-val spannableString: SpannableString
-val spannableStringBuilder: SpannableStringBuilder
+        val spanned: Spanned
+        val spannableString: SpannableString
+        val spannableStringBuilder: SpannableStringBuilder
 
- val text = explanation
+        val text = explanation
 
-spannableString = SpannableString(text)
+        spannableString = SpannableString(text)
 
- val bulletSpanOne =  BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-        val bulletSpanTwo =  BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-val colorSpan = ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+        val bulletSpanOne =
+            BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+        val bulletSpanTwo =
+            BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+        val colorSpan =
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent))
 
         spannableString.setSpan(bulletSpanOne, 8, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(bulletSpanTwo, 21, spannableString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(
+            bulletSpanTwo,
+            21,
+            spannableString.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
 
-        for(i in text!!.indices){
-            if (text[i] =='t'){
-spannableString.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent)), i, i+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        for (i in text!!.indices) {
+            if (text[i] == 't') {
+                spannableString.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorAccent
+                        )
+                    ), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
         }
 
         val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
-        val bitmap =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!.toBitmap()
-        for(i in text!!.indices){
-            if (text[i] =='o'){
-                spannableString.setSpan(ImageSpan(requireContext(),bitmap, verticalAlignment), i, i+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val bitmap = ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!.toBitmap()
+        for (i in text.indices) {
+            if (text[i] == 'o') {
+                spannableString.setSpan(
+                    ImageSpan(requireContext(), bitmap, verticalAlignment),
+                    i,
+                    i + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
         }
 
