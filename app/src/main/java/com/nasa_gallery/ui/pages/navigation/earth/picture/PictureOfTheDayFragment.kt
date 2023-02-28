@@ -272,8 +272,17 @@ class PictureOfTheDayFragment : Fragment() {
             val title = getViewById(R.id.bottomSheetDescriptionHeader) as TextView
             title.text = titleText
             val description = getViewById(R.id.bottomSheetDescription) as TextView
-            description.text = explanation
+            showExplanation(description, explanation)
+
         }
+    }
+
+    private fun showExplanation(description: TextView, explanation: String?) {
+        //Show description
+        description.text = explanation
+
+
+
     }
 
     private fun showDescription(title: String?, description: String?) {
