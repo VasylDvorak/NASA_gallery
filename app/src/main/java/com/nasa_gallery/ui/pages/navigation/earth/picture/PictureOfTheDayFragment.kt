@@ -9,9 +9,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.style.BulletSpan
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +29,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -291,12 +298,33 @@ val spanned: Spanned
 val spannableString: SpannableString
 val spannableStringBuilder: SpannableStringBuilder
 
- val text = "My text <ul><li>bullet one</li><li>bullet two</li></ul>"
-       description.text = Html.fromHtml(text)
+ val text = explanation
+
+spannableString = SpannableString(text)
+
+ val bulletSpanOne =  BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+        val bulletSpanTwo =  BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+val colorSpan = ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent))
+
+        spannableString.setSpan(bulletSpanOne, 8, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(bulletSpanTwo, 21, spannableString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
+        for(i in text!!.indices){
+            if (text[i] =='t'){
+spannableString.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent)), i, i+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        }
 
+        val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
+        val bitmap =  ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!.toBitmap()
+        for(i in text!!.indices){
+            if (text[i] =='o'){
+                spannableString.setSpan(ImageSpan(requireContext(),bitmap, verticalAlignment), i, i+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+        }
 
+        description.text = spannableString
     }
 
     private fun showDescription(title: String?, description: String?) {
