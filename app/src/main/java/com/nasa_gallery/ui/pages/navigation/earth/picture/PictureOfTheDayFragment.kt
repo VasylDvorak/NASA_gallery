@@ -16,6 +16,7 @@ import android.text.style.BulletSpan
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -271,7 +272,9 @@ class PictureOfTheDayFragment : Fragment() {
         bottomSheet: ConstraintLayout
     ) {
         val titleText = serverResponseData.title
-        val explanation = serverResponseData.explanation
+  val explanation = serverResponseData.explanation
+
+
 
         binding.descriptionFab.setOnClickListener {
             showDescription(titleText, explanation)
@@ -301,20 +304,8 @@ class PictureOfTheDayFragment : Fragment() {
 
         spannableString = SpannableString(text)
 
-        val bulletSpanOne =
-            BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-        val bulletSpanTwo =
-            BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-        val colorSpan =
-            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.colorAccent))
 
-        spannableString.setSpan(bulletSpanOne, 8, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(
-            bulletSpanTwo,
-            21,
-            spannableString.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+
 
 
         for (i in text!!.indices) {
@@ -343,8 +334,51 @@ class PictureOfTheDayFragment : Fragment() {
             }
         }
 
+
+
+
+
         description.text = spannableString
     }
+
+    /**
+     * Функция ищет индекс вхождения одной строки 'перенос' в другую. MaterialDesign урок 7. 01:30
+     */
+   private fun String.indexesOf(substr: String, ignoreCase: Boolean = true): List<Int> =
+        (if(ignoreCase) Regex(substr, RegexOption.IGNORE_CASE) else Regex(substr))
+            .findAll(this).map{it.range.first}.toList()
+
+   private fun setBullet(description: TextView, explanation: String?){
+
+       val spanned: Spanned
+       val spannableString: SpannableString
+       val spannableStringBuilder: SpannableStringBuilder
+
+       val text = explanation
+
+       spannableString = SpannableString(text)
+       val result= text?.indexesOf("\n")
+       var current = result?.first()
+
+       result?.forEach {
+           if(current == it){
+               val bulletSpanThree =
+                   BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+               spannableString.setSpan(bulletSpanThree , current!! +1, it, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+           }
+           current = it
+       }
+       val bulletSpanFour =
+           BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
+       spannableString.setSpan(bulletSpanFour , current!! +1, text!!.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+       Log.d("@@@", result.toString())
+
+       description.text = spannableString
+
+   }
+
 
     private fun showDescription(title: String?, description: String?) {
 
