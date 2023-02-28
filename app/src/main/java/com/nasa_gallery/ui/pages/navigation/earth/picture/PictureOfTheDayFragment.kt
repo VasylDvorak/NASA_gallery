@@ -302,7 +302,7 @@ class PictureOfTheDayFragment : Fragment() {
 
         val text = explanation
 
-        spannableString = SpannableString(text)
+        spannableStringBuilder = SpannableStringBuilder(text)
 
 
 
@@ -310,13 +310,13 @@ class PictureOfTheDayFragment : Fragment() {
 
         for (i in text!!.indices) {
             if (text[i] == 't') {
-                spannableString.setSpan(
+                spannableStringBuilder.setSpan(
                     ForegroundColorSpan(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.colorAccent
                         )
-                    ), i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    ), i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
                 )
             }
         }
@@ -325,7 +325,7 @@ class PictureOfTheDayFragment : Fragment() {
         val bitmap = ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!.toBitmap()
         for (i in text.indices) {
             if (text[i] == 'o') {
-                spannableString.setSpan(
+                spannableStringBuilder.setSpan(
                     ImageSpan(requireContext(), bitmap, verticalAlignment),
                     i,
                     i + 1,
@@ -335,10 +335,10 @@ class PictureOfTheDayFragment : Fragment() {
         }
 
 
+       // spannableStringBuilder.insert(4, "***********")
+        spannableStringBuilder.replace(3, 4, "***********")
 
-
-
-        description.text = spannableString
+        description.text = spannableStringBuilder
     }
 
     /**
