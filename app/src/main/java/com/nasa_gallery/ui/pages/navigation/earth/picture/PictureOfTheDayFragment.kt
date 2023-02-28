@@ -8,14 +8,13 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.style.BulletSpan
-import android.text.style.DynamicDrawableSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.ImageSpan
+import android.text.style.*
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -29,8 +28,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.ChangeBounds
@@ -337,7 +339,28 @@ class PictureOfTheDayFragment : Fragment() {
        // spannableStringBuilder.insert(4, "***********")
         spannableStringBuilder.replace(3, 4, "***********")
 
+        val request = FontRequest("com.google.android.gms.fonts",
+            "com.google.android.gms",
+            "Amita", R.array.com_google_android_gms_fonts_certs)
+val callback = object :FontsContractCompat.FontRequestCallback(){
+    override fun onTypefaceRetrieved(typeface: Typeface?) {
+        typeface?.let{
+
+            spannableStringBuilder.setSpan(
+                TypefaceSpan(it),0, spannableStringBuilder.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+
+        super.onTypefaceRetrieved(typeface)
     }
+}
+        FontsContractCompat.requestFont(requireContext(),request,callback,
+            Handler(Looper.getMainLooper()))
+}
+
+
+
+
+
 
     /**
      * Функция ищет индекс вхождения одной строки 'перенос' в другую. MaterialDesign урок 7. 01:30
