@@ -4,9 +4,14 @@ package com.nasa_gallery.ui.pages.navigation.earth.picture
 import android.content.Intent
 import android.graphics.RenderEffect
 import android.graphics.Shader
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -280,6 +285,15 @@ class PictureOfTheDayFragment : Fragment() {
     private fun showExplanation(description: TextView, explanation: String?) {
         //Show description
         description.text = explanation
+        description.typeface = Typeface.createFromAsset(requireActivity().assets, "Aloevera.ttf")
+
+val spanned: Spanned
+val spannableString: SpannableString
+val spannableStringBuilder: SpannableStringBuilder
+
+ val text = "My text <ul><li>bullet one</li><li>bullet two</li></ul>"
+       description.text = Html.fromHtml(text)
+
 
 
 
