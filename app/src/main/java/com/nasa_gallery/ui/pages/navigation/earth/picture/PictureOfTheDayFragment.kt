@@ -298,14 +298,13 @@ class PictureOfTheDayFragment : Fragment() {
 
         val spanned: Spanned
         val spannableString: SpannableString
-        val spannableStringBuilder: SpannableStringBuilder
+        var spannableStringBuilder: SpannableStringBuilder
 
         val text = explanation
 
         spannableStringBuilder = SpannableStringBuilder(text)
-
-
-
+        description.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
+        spannableStringBuilder = description.text as SpannableStringBuilder
 
 
         for (i in text!!.indices) {
@@ -338,7 +337,6 @@ class PictureOfTheDayFragment : Fragment() {
        // spannableStringBuilder.insert(4, "***********")
         spannableStringBuilder.replace(3, 4, "***********")
 
-        description.text = spannableStringBuilder
     }
 
     /**
