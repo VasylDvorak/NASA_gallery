@@ -2,7 +2,10 @@ package com.nasa_gallery.ui.pages.navigation.recycler_notes
 
 import android.content.Context
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.text.style.SuggestionSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +17,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nasa_gallery.R
-import com.nasa_gallery.domain.entity.model.Data
-import com.nasa_gallery.domain.entity.model.TYPE_REMIND
-import com.nasa_gallery.domain.entity.model.TYPE_SIMPLE
 import com.nasa_gallery.databinding.FragmentRecyclerItemHeaderBinding
 import com.nasa_gallery.databinding.FragmentRecyclerItemRemindBinding
 import com.nasa_gallery.databinding.FragmentRecyclerItemSimpleBinding
+import com.nasa_gallery.domain.entity.model.Data
+import com.nasa_gallery.domain.entity.model.TYPE_REMIND
+import com.nasa_gallery.domain.entity.model.TYPE_SIMPLE
 import com.nasa_gallery.ui.pages.navigation.recycler_notes.diffutil.Change
 import com.nasa_gallery.ui.pages.navigation.recycler_notes.diffutil.DiffUtilCallback
 import com.nasa_gallery.ui.pages.navigation.recycler_notes.diffutil.createCombinedPayload
+import java.util.*
 
 
 class RecyclerAdapter(
@@ -127,7 +131,6 @@ class RecyclerAdapter(
                 }
 
                 moveItemUp.setOnClickListener {
-                    // пепеместить во View Model repository
 
                     if (layoutPosition > 1) {
                         listData.removeAt(layoutPosition).apply {
@@ -139,7 +142,6 @@ class RecyclerAdapter(
                 }
 
                 moveItemDown.setOnClickListener {
-                    // пепеместить во View Model repository
                     if (listData.size > (layoutPosition + 1)) {
                         listData.removeAt(layoutPosition).apply {
                             listData.add(layoutPosition + 1, this)
@@ -194,7 +196,9 @@ class RecyclerAdapter(
         var newNote = ""
 
         marsDescriptionTextView.apply {
-            setText(listData[layoutPosition].first.someDescription)
+            suggestionSpan(marsDescriptionTextView, listData[layoutPosition].first.someDescription)
+
+            //  setText(listData[layoutPosition].first.someDescription)
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -213,12 +217,27 @@ class RecyclerAdapter(
             apply.setOnClickListener {
                 listData[layoutPosition].first.someDescription = newNote
                 marsDescriptionTextView.hideKeyboard()
-                //  viewModel.updateNote(docsDataBase)
             }
 
         }
 
 
+    }
+
+    private fun suggestionSpan(editText: AppCompatEditText, someDescription: String?) {
+        var correctedText = someDescription
+        val startIndex = 0
+        val endIndex = correctedText?.length
+        correctedText = if (endIndex == 0) " " else correctedText
+        val spannableStringBuilder = SpannableStringBuilder(correctedText)
+        val flag = Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        val suggestionArray =
+            arrayOf("Проснись", "Помойся", "Почисть зубы", "Побрейся", "Позавтракай")
+        val locale = Locale.ENGLISH
+        val suggestionSpanFlag = SuggestionSpan.FLAG_AUTO_CORRECTION
+        val suggestionSpan = SuggestionSpan(locale, suggestionArray, suggestionSpanFlag)
+        spannableStringBuilder.setSpan(suggestionSpan, startIndex, endIndex!!, flag)
+        editText.text = spannableStringBuilder
     }
 
     inner class RemindViewHolder(
@@ -240,7 +259,6 @@ class RecyclerAdapter(
                 }
 
                 moveItemUp.setOnClickListener {
-                    // пепеместить во View Model repository
 
                     if (layoutPosition > 1) {
                         listData.removeAt(layoutPosition).apply {
@@ -252,7 +270,7 @@ class RecyclerAdapter(
                 }
 
                 moveItemDown.setOnClickListener {
-                    // пепеместить во View Model repository
+
                     if (listData.size > (layoutPosition + 1)) {
                         listData.removeAt(layoutPosition).apply {
                             listData.add(layoutPosition + 1, this)

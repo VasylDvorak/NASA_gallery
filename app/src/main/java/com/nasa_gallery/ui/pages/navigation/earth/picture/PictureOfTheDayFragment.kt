@@ -6,10 +6,7 @@ import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.graphics.Typeface
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -28,7 +25,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.provider.FontRequest
@@ -269,6 +265,7 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
+
     private fun setBottomSheetBehavior(
         serverResponseData: PictureOfTheDayResponseData,
         bottomSheet: ConstraintLayout
@@ -286,20 +283,53 @@ class PictureOfTheDayFragment : Fragment() {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         with(bottomSheet) {
             val title = getViewById(R.id.bottomSheetDescriptionHeader) as TextView
-            title.text = titleText
+            showTitle(title, titleText)
+          //  title.text = titleText
             val description = getViewById(R.id.bottomSheetDescription) as TextView
             showExplanation(description, explanation)
 
         }
     }
 
+    private fun showTitle(title: TextView, titleText: String?) {
+        title.typeface = Typeface.createFromAsset(requireActivity().assets,
+            "font/Lobster-Regular.ttf")
+        var spannableStringBuilder: SpannableStringBuilder
+        spannableStringBuilder = SpannableStringBuilder(titleText)
+        title.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
+        spannableStringBuilder = title.text as SpannableStringBuilder
+val textLength = titleText!!.length
+        spannableStringBuilder.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.green
+                )
+            ), 0, (textLength/3).toInt(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+        )
+        spannableStringBuilder.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color3
+                )
+            ), (textLength/3).toInt(), (2*textLength/3).toInt(), Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        spannableStringBuilder.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indigo
+                )
+            ), (2*textLength/3).toInt(), textLength, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+    }
+
     private fun showExplanation(description: TextView, explanation: String?) {
-        //Show description
-        description.text = explanation
+
+
         description.typeface = Typeface.createFromAsset(requireActivity().assets, "Aloevera.ttf")
 
-        val spanned: Spanned
-        val spannableString: SpannableString
         var spannableStringBuilder: SpannableStringBuilder
 
         val text = explanation
@@ -310,12 +340,12 @@ class PictureOfTheDayFragment : Fragment() {
 
 
         for (i in text!!.indices) {
-            if (text[i] == 't') {
+            if (text[i] == ',') {
                 spannableStringBuilder.setSpan(
                     ForegroundColorSpan(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.colorAccent
+                            R.color.teal_700
                         )
                     ), i, i + 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
                 )
@@ -325,7 +355,7 @@ class PictureOfTheDayFragment : Fragment() {
         val verticalAlignment = DynamicDrawableSpan.ALIGN_BASELINE
         val bitmap = ContextCompat.getDrawable(requireContext(), R.drawable.ic_earth)!!.toBitmap()
         for (i in text.indices) {
-            if (text[i] == 'o') {
+            if (text[i] == '.') {
                 spannableStringBuilder.setSpan(
                     ImageSpan(requireContext(), bitmap, verticalAlignment),
                     i,
@@ -334,10 +364,8 @@ class PictureOfTheDayFragment : Fragment() {
                 )
             }
         }
-
-
-       // spannableStringBuilder.insert(4, "***********")
-        spannableStringBuilder.replace(3, 4, "***********")
+        
+        spannableStringBuilder.replace(explanation.length, explanation.length, "@")
 
         val request = FontRequest("com.google.android.gms.fonts",
             "com.google.android.gms",
@@ -357,48 +385,6 @@ val callback = object :FontsContractCompat.FontRequestCallback(){
             Handler(Looper.getMainLooper()))
 }
 
-
-
-
-
-
-    /**
-     * Функция ищет индекс вхождения одной строки 'перенос' в другую. MaterialDesign урок 7. 01:30
-     */
-   private fun String.indexesOf(substr: String, ignoreCase: Boolean = true): List<Int> =
-        (if(ignoreCase) Regex(substr, RegexOption.IGNORE_CASE) else Regex(substr))
-            .findAll(this).map{it.range.first}.toList()
-
-   private fun setBullet(description: TextView, explanation: String?){
-
-       val spanned: Spanned
-       val spannableString: SpannableString
-       val spannableStringBuilder: SpannableStringBuilder
-
-       val text = explanation
-
-       spannableString = SpannableString(text)
-       val result= text?.indexesOf("\n")
-       var current = result?.first()
-
-       result?.forEach {
-           if(current == it){
-               val bulletSpanThree =
-                   BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-               spannableString.setSpan(bulletSpanThree , current!! +1, it, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-           }
-           current = it
-       }
-       val bulletSpanFour =
-           BulletSpan(20, ContextCompat.getColor(requireContext(), R.color.indigo_dark), 20)
-       spannableString.setSpan(bulletSpanFour , current!! +1, text!!.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-       Log.d("@@@", result.toString())
-
-       description.text = spannableString
-
-   }
 
 
     private fun showDescription(title: String?, description: String?) {

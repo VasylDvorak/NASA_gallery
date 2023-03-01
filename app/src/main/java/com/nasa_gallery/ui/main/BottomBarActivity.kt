@@ -20,6 +20,7 @@ class BottomBarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getSupportActionBar()?.hide()
         binding = ActivityBootomBarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

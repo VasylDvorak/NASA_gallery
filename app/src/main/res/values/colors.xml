@@ -8,8 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="color_gray">#66000000</color>
-    <color name="red">#F3043C</color>
-    <color name="green">#47A532</color>
     <color name="one">#E39005</color>
     <color name="two">#6D0D97</color>
     <color name="three">#8F1818</color>
@@ -27,4 +25,13 @@
     <color name="color2">#C85A12</color>
     <color name="color3">#DA3F0E</color>
     <color name="color4">#D6335A</color>
+
+    <color name="red">#FF0000</color>
+    <color name="orange">#FF7F00</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="light_blue">#2A77AC</color>
+    <color name="blue">#0000FF</color>
+    <color name="violet">#9400D3</color>
+    <color name="purple_500">#FF6200EE</color>
 </resources>
