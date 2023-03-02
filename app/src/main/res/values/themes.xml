@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="ThemeNASAgallery" parent="Theme.Material3.DynamicColors.DayNight">
         <!-- Primary brand color. -->
-<!--        <item name="windowActionBar">false</item>-->
+        <!--        <item name="windowActionBar">false</item>-->
         <item name="windowNoTitle">false</item>
         <item name="myColor">@color/indigo_light</item>
         <item name="colorPrimary">@color/pink_dark</item>
@@ -23,6 +23,10 @@
         <item name="bottomNavigationStyle">@style/MyBottomNavigationView</item>
         <item name="materialCardViewStyle">@style/MyCardViewStyle</item>
 
+
+    </style>
+    <style name="SplashTheme" parent="ThemeNASAgallery">
+        <item name= "android:windowBackground" >@drawable/splash_background</item>
 
     </style>
 
@@ -132,5 +136,14 @@
     <style name="MyAppBarStyleRed" parent="@style/Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/color4</item>
     </style>
+
+    <style name="ThemeNASAgallery.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ThemeNASAgallery.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="ThemeNASAgallery.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
