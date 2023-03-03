@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 import com.nasa_gallery.databinding.FragmentUxButtonBinding
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 
 
 class TutorialButtonUXFragment : Fragment() {
@@ -32,15 +34,15 @@ class TutorialButtonUXFragment : Fragment() {
     }
 
     private fun show() {
-        /*
+
         GuideView.Builder(requireContext())
             .setTitle("Guide Title Text")
             .setContentText("Guide Description Text\n .....Guide Description Text\n .....Guide Description Text .....")
             .setTargetView(binding.btnBad)
-            .setDismissType(DismissType.outside) //optional - default dismissible by TargetView
+            .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
             .build()
             .show()
-            */
+
 
     }
 
