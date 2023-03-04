@@ -47,6 +47,8 @@ import com.nasa_gallery.domain.entity.view_model.PictureOfTheDayViewModel
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_DESCRIPTION
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_TITLE
 import com.nasa_gallery.ui.pages.navigation.description.CoordinatorFragment
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,7 +77,6 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         exitTransition = MaterialFadeThrough()
     }
 
@@ -90,7 +91,12 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+if(firstStart){
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (isAdded)// проверяем, не умер ли фрагент
+                showTuturial()
+        }, 500)
+firstStart = false}
 
         binding.apply {
             inputLayout.setEndIconOnClickListener {
@@ -406,6 +412,19 @@ val callback = object :FontsContractCompat.FontRequestCallback(){
         }
     }
 
+    private fun showTuturial() {
+
+        GuideView.Builder(requireContext())
+            .setTitle("Функция кнопки")
+            .setContentText("Описание фотографии\nс NASA.")
+            .setTargetView(binding.descriptionFab)
+            .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
+            .build()
+            .show()
+
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -413,6 +432,7 @@ val callback = object :FontsContractCompat.FontRequestCallback(){
 
 
     companion object {
+       private var firstStart: Boolean =true
         fun newInstance(bundle: Bundle): PictureOfTheDayFragment {
             val fragment = PictureOfTheDayFragment()
             fragment.arguments = bundle

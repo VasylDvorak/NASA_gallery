@@ -25,11 +25,12 @@
 
 
     </style>
-    <style name="SplashTheme" parent="ThemeNASAgallery">
-        <item name= "android:windowBackground" >@drawable/splash_background</item>
-        <item name="android:statusBarColor" >@color/green</item>
-        <item name="android:navigationBarColor" >@color/five</item>
+
+    <style name="ShapeAppearanceOverlay" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
+
 
     <style name="MyCardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">30dp</item>

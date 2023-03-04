@@ -1,4 +1,4 @@
-package com.nasa_gallery.ui.ux
+package com.nasa_gallery.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
