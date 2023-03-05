@@ -1,43 +1,28 @@
 package com.nasa_gallery.ui.pages.navigation.picture_artist
 
-import android.content.Context
-import android.graphics.*
+import android.graphics.BlurMaskFilter
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.DrawableMarginSpan
 import android.text.style.IconMarginSpan
 import android.text.style.LineHeightSpan
 import android.text.style.MaskFilterSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import androidx.fragment.app.Fragment
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentPictureBinding
+import com.nasa_gallery.ui.main.ViewBindingFragment
 
-class PictureFragment : Fragment() {
-    private var _binding: FragmentPictureBinding? = null
-    private val binding get() = _binding!!
-
+class PictureFragment : ViewBindingFragment<FragmentPictureBinding>(
+    FragmentPictureBinding::inflate
+) {
     var isFlag = false
     var duration = 2000L
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentPictureBinding.inflate(inflater, container,
-            false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -100,7 +85,6 @@ class PictureFragment : Fragment() {
         val endIndex = text.length
         val flag = Spannable.SPAN_INCLUSIVE_INCLUSIVE  // 0: no flag;
 
-// Change the line height of the whole paragraph
         val lineHeightInPx = 100
         spannableString.setSpan(LineHeightSpan.Standard(lineHeightInPx), startIndex, endIndex, flag)
 
@@ -123,10 +107,7 @@ class PictureFragment : Fragment() {
         title.text = spannableString
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }}
+}
 
 
 

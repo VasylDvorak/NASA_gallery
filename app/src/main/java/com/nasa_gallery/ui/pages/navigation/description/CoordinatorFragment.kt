@@ -1,49 +1,25 @@
 package com.nasa_gallery.ui.pages.navigation.description
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.transition.Fade
 import com.google.android.material.transition.MaterialFadeThrough
-import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentCoordinatorBinding
+import com.nasa_gallery.ui.main.ViewBindingFragment
 import com.nasa_gallery.ui.pages.navigation.earth.picture.EARTH_BUNDLE
 
 const val BUNDLE_DESCRIPTION = "description"
 const val BUNDLE_TITLE = "title"
 
-class CoordinatorFragment : Fragment() {
-    private var _binding: FragmentCoordinatorBinding? = null
-    private val binding: FragmentCoordinatorBinding
-        get() = _binding!!
+class CoordinatorFragment :
+    ViewBindingFragment<FragmentCoordinatorBinding>(FragmentCoordinatorBinding::inflate) {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         enterTransition = MaterialFadeThrough()
         exitTransition = Fade()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCoordinatorBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,8 +37,6 @@ class CoordinatorFragment : Fragment() {
             }
         }
     }
-
-
 
 
     companion object {

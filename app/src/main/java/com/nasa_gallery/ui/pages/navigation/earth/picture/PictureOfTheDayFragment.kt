@@ -6,17 +6,18 @@ import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.graphics.Typeface
 import android.net.Uri
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.*
-import android.util.Log
+import android.text.style.DynamicDrawableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.ImageSpan
+import android.text.style.TypefaceSpan
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -40,13 +41,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.nasa_gallery.R
+import com.nasa_gallery.data.net.model.PictureOfTheDayResponseData
 import com.nasa_gallery.databinding.FragmentPictureOfTheDayBinding
-import com.nasa_gallery.domain.Application.AppState
-import com.nasa_gallery.domain.entity.model.PictureOfTheDayResponseData
-import com.nasa_gallery.domain.entity.view_model.PictureOfTheDayViewModel
+import com.nasa_gallery.domain.application.AnswerFromServerStatePictureOfTheDay
+import com.nasa_gallery.ui.main.ViewBindingFragment
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_DESCRIPTION
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_TITLE
 import com.nasa_gallery.ui.pages.navigation.description.CoordinatorFragment
+import com.nasa_gallery.ui.view_model.PictureOfTheDayViewModel
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 import java.text.DateFormat
@@ -63,14 +65,12 @@ const val VIDEO = "video"
 const val hartEffect = 500
 const val duration = 2000L
 
-class PictureOfTheDayFragment : Fragment() {
-
-    private var _binding: FragmentPictureOfTheDayBinding? = null
-    private val binding get() = _binding!!
+class PictureOfTheDayFragment : ViewBindingFragment<FragmentPictureOfTheDayBinding>(
+    FragmentPictureOfTheDayBinding::inflate
+) {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
-    //Ленивая инициализация модели
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this)[PictureOfTheDayViewModel::class.java]
     }
@@ -81,22 +81,15 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentPictureOfTheDayBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-if(firstStart){
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (isAdded)// проверяем, не умер ли фрагент
-                showTuturial()
-        }, 500)
-firstStart = false}
+        if (firstStart) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (isAdded)// проверяем, не умер ли фрагент
+                    showTuturial()
+            }, 500)
+            firstStart = false
+        }
 
         binding.apply {
             inputLayout.setEndIconOnClickListener {
@@ -164,10 +157,10 @@ firstStart = false}
         viewModel.getData(dateText).observe(viewLifecycleOwner) { renderData(it) }
     }
 
-    private fun renderData(data: AppState) {
+    private fun renderData(data: AnswerFromServerStatePictureOfTheDay) {
         binding.apply {
             when (data) {
-                is AppState.Success -> {
+                is AnswerFromServerStatePictureOfTheDay.Success -> {
                     loading.visibility = View.GONE
 
                     val serverResponseData = data.serverResponseData
@@ -199,10 +192,10 @@ firstStart = false}
 
                     }
                 }
-                is AppState.Loading -> {
+                is AnswerFromServerStatePictureOfTheDay.Loading -> {
                     loading.visibility = View.VISIBLE
                 }
-                is AppState.Error -> {
+                is AnswerFromServerStatePictureOfTheDay.Error -> {
                     loading.visibility = View.GONE
                     toast(data.error.message)
                 }
@@ -277,7 +270,7 @@ firstStart = false}
         bottomSheet: ConstraintLayout
     ) {
         val titleText = serverResponseData.title
-  val explanation = serverResponseData.explanation
+        val explanation = serverResponseData.explanation
 
 
 
@@ -289,29 +282,32 @@ firstStart = false}
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         with(bottomSheet) {
             val title = getViewById(R.id.bottomSheetDescriptionHeader) as TextView
-            showTitle(title, titleText)
-          //  title.text = titleText
+            //   showTitle(title, titleText)
+            title.text = titleText
             val description = getViewById(R.id.bottomSheetDescription) as TextView
-            showExplanation(description, explanation)
+            description.text = explanation
+            //   showExplanation(description, explanation)
 
         }
     }
 
     private fun showTitle(title: TextView, titleText: String?) {
-        title.typeface = Typeface.createFromAsset(requireActivity().assets,
-            "font/Lobster-Regular.ttf")
+        title.typeface = Typeface.createFromAsset(
+            requireActivity().assets,
+            "font/Lobster-Regular.ttf"
+        )
         var spannableStringBuilder: SpannableStringBuilder
         spannableStringBuilder = SpannableStringBuilder(titleText)
         title.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
         spannableStringBuilder = title.text as SpannableStringBuilder
-val textLength = titleText!!.length
+        val textLength = titleText!!.length
         spannableStringBuilder.setSpan(
             ForegroundColorSpan(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.green
                 )
-            ), 0, (textLength/3).toInt(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            ), 0, (textLength / 3).toInt(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE
         )
         spannableStringBuilder.setSpan(
             ForegroundColorSpan(
@@ -319,7 +315,10 @@ val textLength = titleText!!.length
                     requireContext(),
                     R.color.color3
                 )
-            ), (textLength/3).toInt(), (2*textLength/3).toInt(), Spannable.SPAN_INCLUSIVE_INCLUSIVE
+            ),
+            (textLength / 3).toInt(),
+            (2 * textLength / 3).toInt(),
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
         spannableStringBuilder.setSpan(
             ForegroundColorSpan(
@@ -327,7 +326,7 @@ val textLength = titleText!!.length
                     requireContext(),
                     R.color.indigo
                 )
-            ), (2*textLength/3).toInt(), textLength, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            ), (2 * textLength / 3).toInt(), textLength, Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
     }
 
@@ -370,27 +369,32 @@ val textLength = titleText!!.length
                 )
             }
         }
-        
+
         spannableStringBuilder.replace(explanation.length, explanation.length, "@")
 
-        val request = FontRequest("com.google.android.gms.fonts",
+        val request = FontRequest(
+            "com.google.android.gms.fonts",
             "com.google.android.gms",
-            "Amita", R.array.com_google_android_gms_fonts_certs)
-val callback = object :FontsContractCompat.FontRequestCallback(){
-    override fun onTypefaceRetrieved(typeface: Typeface?) {
-        typeface?.let{
+            "Amita", R.array.com_google_android_gms_fonts_certs
+        )
+        val callback = object : FontsContractCompat.FontRequestCallback() {
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                typeface?.let {
 
-            spannableStringBuilder.setSpan(
-                TypefaceSpan(it),0, spannableStringBuilder.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                    spannableStringBuilder.setSpan(
+                        TypefaceSpan(it), 0, spannableStringBuilder.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
 
-        super.onTypefaceRetrieved(typeface)
+                super.onTypefaceRetrieved(typeface)
+            }
+        }
+        FontsContractCompat.requestFont(
+            requireContext(), request, callback,
+            Handler(Looper.getMainLooper())
+        )
     }
-}
-        FontsContractCompat.requestFont(requireContext(),request,callback,
-            Handler(Looper.getMainLooper()))
-}
-
 
 
     private fun showDescription(title: String?, description: String?) {
@@ -415,8 +419,8 @@ val callback = object :FontsContractCompat.FontRequestCallback(){
     private fun showTuturial() {
 
         GuideView.Builder(requireContext())
-            .setTitle("Функция кнопки")
-            .setContentText("Описание фотографии\nс NASA.")
+            .setTitle(getString(R.string.tutorial_title))
+            .setContentText(getString(R.string.tutorial_description))
             .setTargetView(binding.descriptionFab)
             .setDismissType(DismissType.anywhere) //optional - default dismissible by TargetView
             .build()
@@ -425,14 +429,8 @@ val callback = object :FontsContractCompat.FontRequestCallback(){
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
     companion object {
-       private var firstStart: Boolean =true
+        private var firstStart: Boolean = true
         fun newInstance(bundle: Bundle): PictureOfTheDayFragment {
             val fragment = PictureOfTheDayFragment()
             fragment.arguments = bundle

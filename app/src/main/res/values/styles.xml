@@ -9,7 +9,7 @@
         <item name="shapeAppearanceOverlay">@style/MyShapeAppearanceSmallComponent</item>
     </style>
     <style name="MyTextInputLayoutStile" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="helperTextTextColor">@color/green</item>
+        <item name="helperTextTextColor">@color/purple_100</item>
     </style>
 
     <style name="ThemeNASAgallery.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

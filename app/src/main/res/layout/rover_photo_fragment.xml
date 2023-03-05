@@ -8,7 +8,7 @@
     <FrameLayout
         android:id="@+id/PictureLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/picture_size"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/material_dynamic_neutral_variant80"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,10 +26,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/photo_from_mars"
-                android:textColor="@color/one"
+
                 android:textSize="@dimen/text_size" />
 
-            <com.nasa_gallery.domain.util.MyImageView
+            <com.nasa_gallery.ui.MyCustomImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/picture_size"

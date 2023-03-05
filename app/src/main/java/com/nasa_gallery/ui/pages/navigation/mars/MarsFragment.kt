@@ -1,21 +1,18 @@
 package com.nasa_gallery.ui.pages.navigation.mars
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.platform.Hold
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.FragmentMarsBinding
+import com.nasa_gallery.ui.main.ViewBindingFragment
 
 
-class MarsFragment : Fragment() {
-    private var _binding: FragmentMarsBinding? = null
-    private val binding get() = _binding!!
-
+class MarsFragment : ViewBindingFragment<FragmentMarsBinding>(
+    FragmentMarsBinding::inflate
+) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,15 +27,6 @@ class MarsFragment : Fragment() {
 
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentMarsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,11 +50,5 @@ class MarsFragment : Fragment() {
             }
         }.attach()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
 
 }

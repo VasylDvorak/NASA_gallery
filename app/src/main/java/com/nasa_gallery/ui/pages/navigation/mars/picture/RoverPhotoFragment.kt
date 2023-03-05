@@ -3,17 +3,16 @@ package com.nasa_gallery.ui.pages.navigation.mars.picture
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.RoverPhotoFragmentBinding
-import com.nasa_gallery.domain.Application.AppStateMars
-import com.nasa_gallery.domain.entity.view_model.MarsViewModel
+import com.nasa_gallery.domain.application.AnswerFromServerStateMars
+import com.nasa_gallery.ui.main.ViewBindingFragment
+import com.nasa_gallery.ui.view_model.MarsViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,25 +24,15 @@ const val OPPORTUNITY = 2
 const val SPIRIT = 3
 
 
-class RoverPhotoFragment : Fragment() {
+class RoverPhotoFragment : ViewBindingFragment<RoverPhotoFragmentBinding>(
+    RoverPhotoFragmentBinding::inflate
+) {
     private var daysBack = 0
     private var roverNow = CURIOSITY
 
-    private var _binding: RoverPhotoFragmentBinding? = null
-    private val binding get() = _binding!!
 
-
-    //Ленивая инициализация модели
     private val viewModel: MarsViewModel by lazy {
         ViewModelProvider(this)[MarsViewModel::class.java]
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = RoverPhotoFragmentBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,10 +71,10 @@ class RoverPhotoFragment : Fragment() {
         viewModel.getData(dateText, rover).observe(viewLifecycleOwner) { renderData(it) }
     }
 
-    private fun renderData(data: AppStateMars) {
+    private fun renderData(data: AnswerFromServerStateMars) {
         binding.apply {
             when (data) {
-                is AppStateMars.Success -> {
+                is AnswerFromServerStateMars.Success -> {
                     loading.visibility = View.GONE
                     val serverResponseData = data.serverResponseData
                     val photos_list = serverResponseData.photos
@@ -106,10 +95,10 @@ class RoverPhotoFragment : Fragment() {
                         }
                     }
                 }
-                is AppStateMars.Loading -> {
+                is AnswerFromServerStateMars.Loading -> {
                     loading.visibility = View.VISIBLE
                 }
-                is AppStateMars.Error -> {
+                is AnswerFromServerStateMars.Error -> {
                     loading.visibility = View.GONE
                     toast(data.error.message)
                 }
@@ -131,19 +120,12 @@ class RoverPhotoFragment : Fragment() {
     }
 
 
-
     private fun Fragment.toast(string: String?) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 
     companion object {
         fun newInstance(bundle: Bundle): RoverPhotoFragment {

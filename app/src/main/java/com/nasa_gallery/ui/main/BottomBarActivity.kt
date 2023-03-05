@@ -1,22 +1,18 @@
 package com.nasa_gallery.ui.main
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.ActivityBootomBarBinding
 import com.nasa_gallery.ui.pages.navigation.earth.EarthFragment
 import com.nasa_gallery.ui.pages.navigation.mars.MarsFragment
+import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment
+import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment.Companion.dataSize
 import com.nasa_gallery.ui.pages.navigation.picture_artist.PictureFragment
-
 import com.nasa_gallery.ui.pages.navigation.system.SystemFragment
-import com.nasa_gallery.ui.pages.navigation.recycler_notes.RecyclerFragment
-import com.nasa_gallery.ui.pages.navigation.recycler_notes.RecyclerFragment.Companion.dataSize
 
 class BottomBarActivity : AppCompatActivity(), ActivityInterractor {
 
@@ -25,15 +21,18 @@ class BottomBarActivity : AppCompatActivity(), ActivityInterractor {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getSupportActionBar()?.hide()
+        supportActionBar?.hide()
         binding = ActivityBootomBarBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-if(savedInstanceState == null){
-splashStart()
-}}
+        if (savedInstanceState == null) {
+            splashStart()
+        }
+    }
+
     override fun onFragmentClosed() {
         startBottomBarActivity()
     }
+
     private fun startBottomBarActivity() {
 
         binding?.cardView?.visibility = View.VISIBLE
@@ -94,28 +93,31 @@ splashStart()
 
     private fun splashStart() {
         binding?.cardView?.visibility = View.GONE
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.rotate,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                .replace(R.id.container, SplashFragment()).addToBackStack("").commit()
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.rotate,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
+            .replace(R.id.container, SplashFragment()).addToBackStack("").commit()
     }
-
-
-
 
     fun navigateTo(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.slide_out,
+                R.anim.slide_in,
+                R.anim.slide_out,
+            )
             .replace(com.google.android.material.R.id.container, fragment).commit()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null
     }
-
 
 
 }
