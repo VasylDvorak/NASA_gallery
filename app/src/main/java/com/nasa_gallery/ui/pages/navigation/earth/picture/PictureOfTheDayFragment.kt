@@ -48,7 +48,7 @@ import com.nasa_gallery.ui.main.ViewBindingFragment
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_DESCRIPTION
 import com.nasa_gallery.ui.pages.navigation.description.BUNDLE_TITLE
 import com.nasa_gallery.ui.pages.navigation.description.CoordinatorFragment
-import com.nasa_gallery.ui.view_model.PictureOfTheDayViewModel
+import com.nasa_gallery.ui.view_models.PictureOfTheDayViewModel
 import smartdevelop.ir.eram.showcaseviewlib.GuideView
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
 import java.text.DateFormat

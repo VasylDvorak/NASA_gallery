@@ -81,5 +81,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="tutorial_title">Функция кнопки</string>
     <string name="tutorial_description">Описание фотографии с NASA.</string>
+    <string name="header_notes">Заголовок</string>
+    <string name="noye_cant_find">Заметка не найдена</string>
 
 </resources>

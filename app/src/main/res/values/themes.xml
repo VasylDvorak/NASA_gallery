@@ -4,6 +4,7 @@
         <!-- Primary brand color. -->
         <!--        <item name="windowActionBar">false</item>-->
 <!--        <item name="windowNoTitle">false</item>-->
+
         <item name="myColor">@color/indigo_light</item>
         <item name="colorPrimary">@color/pink_dark</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -30,6 +31,7 @@
 <item name= "android:windowBackground" >@drawable/galaxy_two</item>
 <item name="android:statusBarColor" >@color/pink_dark</item>
 <item name="android:navigationBarColor" >@color/black</item>
+    <item name="android:forceDarkAllowed">true</item>
 </style>
 
     <style name="ShapeAppearanceOverlay" parent="ShapeAppearance.MaterialComponents.SmallComponent">

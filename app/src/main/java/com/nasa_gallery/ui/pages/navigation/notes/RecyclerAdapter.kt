@@ -17,12 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nasa_gallery.R
+import com.nasa_gallery.data.notes.model_notes.DataForNotes
+import com.nasa_gallery.data.notes.model_notes.TYPE_REMIND
+import com.nasa_gallery.data.notes.model_notes.TYPE_SIMPLE
 import com.nasa_gallery.databinding.FragmentRecyclerItemHeaderBinding
 import com.nasa_gallery.databinding.FragmentRecyclerItemRemindBinding
 import com.nasa_gallery.databinding.FragmentRecyclerItemSimpleBinding
-import com.nasa_gallery.data.net.model.Data
-import com.nasa_gallery.data.net.model.TYPE_REMIND
-import com.nasa_gallery.data.net.model.TYPE_SIMPLE
 import com.nasa_gallery.ui.pages.navigation.notes.diffutil.Change
 import com.nasa_gallery.ui.pages.navigation.notes.diffutil.DiffUtilCallback
 import com.nasa_gallery.ui.pages.navigation.notes.diffutil.createCombinedPayload
@@ -30,17 +30,17 @@ import java.util.*
 
 
 class RecyclerAdapter(
-    private var listData: MutableList<Pair<Data, Boolean>>, val callbackAddMars: AddItem,
+    private var listData: MutableList<Pair<DataForNotes, Boolean>>, val callbackAddMars: AddItem,
     val callbackAddEarth: AddItem, val callbackRemove: RemoveItem
 ) : RecyclerView.Adapter<RecyclerAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
 
-    fun setListDataForDiffUtil(listDataNew: MutableList<Pair<Data, Boolean>>) {
+    fun setListDataForDiffUtil(listDataNew: MutableList<Pair<DataForNotes, Boolean>>) {
         val diff = DiffUtil.calculateDiff(DiffUtilCallback(listData, listDataNew))
         diff.dispatchUpdatesTo(this)
     }
 
-    fun setFilteredList(filteredList: MutableList<Pair<Data, Boolean>>) {
+    fun setFilteredList(filteredList: MutableList<Pair<DataForNotes, Boolean>>) {
         for (i in 0..listData.size) {
             notifyItemRemoved(i)
         }
@@ -48,13 +48,13 @@ class RecyclerAdapter(
         setListDataAdd(listData, listData.size)
     }
 
-    fun setListDataRemove(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
+    fun setListDataRemove(listDataNew: MutableList<Pair<DataForNotes, Boolean>>, position: Int) {
         listData = listDataNew
         notifyItemRemoved(position)
         listData = listDataNew
     }
 
-    fun setListDataAdd(listDataNew: MutableList<Pair<Data, Boolean>>, position: Int) {
+    fun setListDataAdd(listDataNew: MutableList<Pair<DataForNotes, Boolean>>, position: Int) {
         listData = listDataNew
         notifyItemInserted(position)
     }
@@ -95,7 +95,7 @@ class RecyclerAdapter(
             super.onBindViewHolder(holder, position, payloads)
         } else {
             val createCombinedPayload =
-                createCombinedPayload(payloads as List<Change<Pair<Data, Boolean>>>)
+                createCombinedPayload(payloads as List<Change<Pair<DataForNotes, Boolean>>>)
             if (createCombinedPayload.newData.first.name != createCombinedPayload.oldData.first.name)
                 holder.itemView.findViewById<TextView>(R.id.name).text =
                     createCombinedPayload.newData.first.name
@@ -117,7 +117,7 @@ class RecyclerAdapter(
         val binding: FragmentRecyclerItemSimpleBinding,
     ) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Pair<Data, Boolean>) {
+        override fun bind(data: Pair<DataForNotes, Boolean>) {
             binding.apply {
                 name.text =
                     data.first.name + " Приоритет: " + data.first.priority + " Дата " +
@@ -244,7 +244,7 @@ class RecyclerAdapter(
         val binding: FragmentRecyclerItemRemindBinding,
     ) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Pair<Data, Boolean>) {
+        override fun bind(data: Pair<DataForNotes, Boolean>) {
             binding.apply {
                 name.text =
                     data.first.name + " Приоритет: " + data.first.priority + " Дата " +
@@ -317,14 +317,14 @@ class RecyclerAdapter(
 
     class HeaderViewHolder(val binding: FragmentRecyclerItemHeaderBinding) :
         BaseViewHolder(binding.root) {
-        override fun bind(data: Pair<Data, Boolean>) {
+        override fun bind(data: Pair<DataForNotes, Boolean>) {
             binding.name.text = data.first.name
         }
     }
 
     abstract class BaseViewHolder(view: View) :
         RecyclerView.ViewHolder(view), ItemTouchHelperViewHolder {
-        abstract fun bind(data: Pair<Data, Boolean>)
+        abstract fun bind(data: Pair<DataForNotes, Boolean>)
         override fun onItemSelected() {
 
             itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.color3))

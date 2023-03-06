@@ -1,4 +1,4 @@
-package com.nasa_gallery.data.net
+package com.nasa_gallery.data.net.repository_nasa
 
 import com.nasa_gallery.data.net.model.PictureOfTheDayResponseData
 import com.nasa_gallery.data.net.model.mars_data.MarsPhotosData

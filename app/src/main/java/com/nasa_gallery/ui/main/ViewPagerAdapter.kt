@@ -3,7 +3,7 @@ package com.nasa_gallery.ui.main
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nasa_gallery.ui.pages.navigation.mars.MarsFragment
-import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment
+import com.nasa_gallery.ui.pages.navigation.notes.NotesFragment
 import com.nasa_gallery.ui.pages.navigation.picture_artist.PictureFragment
 import com.nasa_gallery.ui.pages.navigation.system.SystemFragment
 
@@ -12,7 +12,7 @@ class ViewPagerAdapter(fragment: Fragment) :
 
     private val fragments = arrayOf(
         MarsFragment(), SystemFragment(),
-        PictureFragment(), RecyclerFragment()
+        PictureFragment(), NotesFragment()
     )
 
     override fun getItemCount(): Int {

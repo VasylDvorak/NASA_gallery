@@ -1,4 +1,4 @@
-package com.nasa_gallery.ui.view_model
+package com.nasa_gallery.ui.view_models
 
 
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.nasa_gallery.BuildConfig
 import com.nasa_gallery.MyApp
 import com.nasa_gallery.R
-import com.nasa_gallery.data.net.RepositoryImpl
+import com.nasa_gallery.data.net.repository_nasa.RepositoryImpl
 import com.nasa_gallery.data.net.model.mars_data.MarsPhotosData
 import com.nasa_gallery.domain.application.AnswerFromServerStateMars
 import retrofit2.Call

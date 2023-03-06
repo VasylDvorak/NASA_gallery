@@ -1,4 +1,4 @@
-package com.nasa_gallery.ui.view_model
+package com.nasa_gallery.ui.view_models
 
 
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.nasa_gallery.BuildConfig
 import com.nasa_gallery.MyApp
 import com.nasa_gallery.R
-import com.nasa_gallery.data.net.RepositoryImpl
+import com.nasa_gallery.data.net.repository_nasa.RepositoryImpl
 import com.nasa_gallery.data.net.model.PictureOfTheDayResponseData
 import com.nasa_gallery.domain.application.AnswerFromServerStatePictureOfTheDay
 import retrofit2.Call
@@ -15,8 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PictureOfTheDayViewModel(
-    private val liveDataForViewToObserve: MutableLiveData<AnswerFromServerStatePictureOfTheDay> = MutableLiveData(),
-    private val retrofitImpl: RepositoryImpl = RepositoryImpl()
+    private val liveDataForViewToObserve: MutableLiveData<AnswerFromServerStatePictureOfTheDay>
+    = MutableLiveData(), private val retrofitImpl: RepositoryImpl = RepositoryImpl()
 ) :
     ViewModel() {
     fun getData(dateText: String): LiveData<AnswerFromServerStatePictureOfTheDay> {

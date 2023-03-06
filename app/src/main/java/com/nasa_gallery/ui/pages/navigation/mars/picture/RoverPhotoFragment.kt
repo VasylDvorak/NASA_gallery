@@ -12,7 +12,7 @@ import com.nasa_gallery.R
 import com.nasa_gallery.databinding.RoverPhotoFragmentBinding
 import com.nasa_gallery.domain.application.AnswerFromServerStateMars
 import com.nasa_gallery.ui.main.ViewBindingFragment
-import com.nasa_gallery.ui.view_model.MarsViewModel
+import com.nasa_gallery.ui.view_models.MarsViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

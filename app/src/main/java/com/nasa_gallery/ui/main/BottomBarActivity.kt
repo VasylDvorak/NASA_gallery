@@ -1,23 +1,33 @@
 package com.nasa_gallery.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import com.google.android.material.badge.BadgeDrawable
 import com.nasa_gallery.R
 import com.nasa_gallery.databinding.ActivityBootomBarBinding
 import com.nasa_gallery.ui.pages.navigation.earth.EarthFragment
 import com.nasa_gallery.ui.pages.navigation.mars.MarsFragment
-import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment
-import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment.Companion.dataSize
+import com.nasa_gallery.ui.pages.navigation.notes.NotesFragment
+import com.nasa_gallery.ui.pages.navigation.notes.NotesFragment.Companion.dataSize
 import com.nasa_gallery.ui.pages.navigation.picture_artist.PictureFragment
 import com.nasa_gallery.ui.pages.navigation.system.SystemFragment
+import com.nasa_gallery.ui.view_models.PictureOfTheDayViewModel
 
 class BottomBarActivity : AppCompatActivity(), ActivityInterractor {
 
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        startBottomBarActivity()
+    }
+
     private var binding: ActivityBootomBarBinding? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +61,7 @@ class BottomBarActivity : AppCompatActivity(), ActivityInterractor {
                     navigateTo(PictureFragment())
                 }
                 R.id.action_view_notes -> {
-                    navigateTo(RecyclerFragment())
+                    navigateTo(NotesFragment())
                 }
             }
             true
