@@ -1,4 +1,4 @@
-package com.nasa_gallery.data.net
+package com.nasa_gallery.data.net.repository_nasa
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

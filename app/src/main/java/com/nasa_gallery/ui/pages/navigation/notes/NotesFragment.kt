@@ -9,71 +9,50 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.nasa_gallery.R
-import com.nasa_gallery.data.net.model.Data
-import com.nasa_gallery.data.net.model.TYPE_HEADER
-import com.nasa_gallery.data.net.model.TYPE_REMIND
-import com.nasa_gallery.data.net.model.TYPE_SIMPLE
+import com.nasa_gallery.data.net.model.*
+import com.nasa_gallery.data.notes.model_notes.DataForNotes
+import com.nasa_gallery.data.notes.model_notes.TYPE_HEADER
+import com.nasa_gallery.data.notes.model_notes.TYPE_REMIND
+import com.nasa_gallery.data.notes.model_notes.TYPE_SIMPLE
 import com.nasa_gallery.databinding.FragmentRecyclerBinding
 import com.nasa_gallery.ui.main.ViewBindingFragment
+import com.nasa_gallery.ui.view_models.NotesViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
+class NotesFragment : ViewBindingFragment<FragmentRecyclerBinding>(
     FragmentRecyclerBinding::inflate
 ) {
     companion object {
         var dataSize = 0
     }
-
-    val data = arrayListOf(
-        Pair(Data(0, TYPE_HEADER, 0, "Заголовок"), false),
-        Pair(Data(1, TYPE_REMIND, getRandom(), "Заметка напоминание 1", getData()), false),
-        Pair(Data(2, TYPE_REMIND, getRandom(), "Заметка напоминание 2", getData()), false),
-        Pair(Data(3, TYPE_SIMPLE, getRandom(), "Заметка простая 1", getData()), false),
-        Pair(Data(4, TYPE_REMIND, getRandom(), "Заметка напоминание 3", getData()), false),
-        Pair(Data(5, TYPE_REMIND, getRandom(), "Заметка напоминание 4", getData()), false),
-        Pair(Data(6, TYPE_SIMPLE, getRandom(), "Заметка простая 2", getData()), false)
-    )
+    private val viewModel: NotesViewModel by lazy {
+        ViewModelProvider(this)[NotesViewModel::class.java]
+    }
+    lateinit var data : MutableList<Pair<DataForNotes, Boolean>>
     private var isNewList = false
     lateinit var adapter: RecyclerAdapter
 
     private fun changeAdapterData() {
-        adapter.setListDataForDiffUtil(createItemList(isNewList).map { it }.toMutableList())
+        viewModel.getDataForNotesForDiffUtil(isNewList).observe(viewLifecycleOwner) { diffUtilData ->
+
+        adapter.setListDataForDiffUtil(diffUtilData.map { it }.toMutableList())
         isNewList = !isNewList
-    }
-
-
-    private fun createItemList(instanceNumber: Boolean): List<Pair<Data, Boolean>> {
-        return when (instanceNumber) {
-            false -> listOf(
-                Pair(Data(0, TYPE_HEADER, 0, "Заголовок"), false),
-                Pair(Data(1, TYPE_SIMPLE, getRandom(), "Заметка простая 1", getData()), false),
-                Pair(Data(2, TYPE_SIMPLE, getRandom(), "Заметка простая 2", getData()), false),
-                Pair(Data(3, TYPE_SIMPLE, getRandom(), "Заметка простая 3", getData()), false),
-                Pair(Data(4, TYPE_SIMPLE, getRandom(), "Заметка простая 4", getData()), false),
-                Pair(Data(5, TYPE_SIMPLE, getRandom(), "Заметка простая 5", getData()), false),
-                Pair(Data(6, TYPE_SIMPLE, getRandom(), "Заметка простая 6", getData()), false)
-            )
-            true -> listOf(
-                Pair(Data(0, TYPE_HEADER, 0, "Заголовок"), false),
-                Pair(Data(1, TYPE_SIMPLE, getRandom(), "Заметка простая 7", getData()), false),
-                Pair(Data(2, TYPE_SIMPLE, getRandom(), "Заметка простая 8", getData()), false),
-                Pair(Data(3, TYPE_SIMPLE, getRandom(), "Заметка простая 3", getData()), false),
-                Pair(Data(4, TYPE_SIMPLE, getRandom(), "Заметка простая 4", getData()), false),
-                Pair(Data(5, TYPE_SIMPLE, getRandom(), "Заметка простая 9", getData()), false),
-                Pair(Data(6, TYPE_SIMPLE, getRandom(), "Заметка простая 10", getData()), false)
-            )
-        }
-    }
+    }}
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
         setHasOptionsMenu(true)
+
+        viewModel.getDataForNotes().observe(viewLifecycleOwner) { data =it
+
+
         adapter = RecyclerAdapter(data, callbackAddMars, callbackAddEarth, callbackRemove)
         binding.apply {
             recyclerView.adapter = adapter
@@ -90,15 +69,14 @@ class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
                 filterData()
             }
         }
-    }
+    }}
 
 
     val callbackAddMars = AddItem {
-
         val number = (data.size + 1).toString()
         data.add(
             it, Pair(
-                Data(
+                DataForNotes(
                     number.toInt(), TYPE_SIMPLE, getRandom(),
                     "Заметка простая ${number}", getData()
                 ), false
@@ -106,6 +84,7 @@ class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
         )
         dataSize = data.size
         adapter.setListDataAdd(data, it)
+
     }
 
     val callbackAddEarth = AddItem {
@@ -113,7 +92,7 @@ class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
         val number = (data.size + 1).toString()
         data.add(
             it, Pair(
-                Data(
+                DataForNotes(
                     number.toInt(), TYPE_REMIND, getRandom(),
                     "Заметка напоминание ${number}", getData()
                 ), false
@@ -165,8 +144,8 @@ class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
 
     private fun filterName(query: String) {
         val lowerCaseQuery = query.lowercase(Locale.getDefault())
-        val filteredModelList: MutableList<Pair<Data, Boolean>> = ArrayList()
-        filteredModelList.add(Pair(Data(0, TYPE_HEADER, 0, "Заголовок"), false))
+        val filteredModelList: MutableList<Pair<DataForNotes, Boolean>> = ArrayList()
+        filteredModelList.add(Pair(DataForNotes(0, TYPE_HEADER, 0, getString(R.string.header_notes)), false))
         for (model in data) {
 
             val text: String = model.first.name.lowercase(Locale.getDefault())
@@ -176,7 +155,7 @@ class RecyclerFragment : ViewBindingFragment<FragmentRecyclerBinding>(
         }
 
         if (filteredModelList.size == 1) {
-            Toast.makeText(context, "Заметка не найдена", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.noye_cant_find), Toast.LENGTH_LONG).show()
         } else {
             adapter.setFilteredList(filteredModelList)
         }

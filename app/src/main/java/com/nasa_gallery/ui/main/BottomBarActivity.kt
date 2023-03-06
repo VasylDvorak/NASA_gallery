@@ -9,8 +9,8 @@ import com.nasa_gallery.R
 import com.nasa_gallery.databinding.ActivityBootomBarBinding
 import com.nasa_gallery.ui.pages.navigation.earth.EarthFragment
 import com.nasa_gallery.ui.pages.navigation.mars.MarsFragment
-import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment
-import com.nasa_gallery.ui.pages.navigation.notes.RecyclerFragment.Companion.dataSize
+import com.nasa_gallery.ui.pages.navigation.notes.NotesFragment
+import com.nasa_gallery.ui.pages.navigation.notes.NotesFragment.Companion.dataSize
 import com.nasa_gallery.ui.pages.navigation.picture_artist.PictureFragment
 import com.nasa_gallery.ui.pages.navigation.system.SystemFragment
 
@@ -51,7 +51,7 @@ class BottomBarActivity : AppCompatActivity(), ActivityInterractor {
                     navigateTo(PictureFragment())
                 }
                 R.id.action_view_notes -> {
-                    navigateTo(RecyclerFragment())
+                    navigateTo(NotesFragment())
                 }
             }
             true

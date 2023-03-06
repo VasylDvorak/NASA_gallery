@@ -1,11 +1,11 @@
 package com.nasa_gallery.ui.pages.navigation.notes.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.nasa_gallery.data.net.model.Data
+import com.nasa_gallery.data.notes.model_notes.DataForNotes
 
 class DiffUtilCallback(
-    private val oldItems: List<Pair<Data, Boolean>>,
-    private val newItems: List<Pair<Data, Boolean>>
+    private val oldItems: List<Pair<DataForNotes, Boolean>>,
+    private val newItems: List<Pair<DataForNotes, Boolean>>
 
 
 ) : DiffUtil.Callback() {
