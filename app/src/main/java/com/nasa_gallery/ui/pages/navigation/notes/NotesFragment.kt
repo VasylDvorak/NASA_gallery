@@ -173,4 +173,9 @@ class NotesFragment : ViewBindingFragment<FragmentRecyclerBinding>(
         adapter.setFilteredList(sortedData)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+
 }
