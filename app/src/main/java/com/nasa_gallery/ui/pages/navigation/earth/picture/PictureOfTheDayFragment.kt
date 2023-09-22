@@ -19,6 +19,7 @@ import android.text.style.TypefaceSpan
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
+
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -147,6 +148,7 @@ class PictureOfTheDayFragment : ViewBindingFragment<FragmentPictureOfTheDayBindi
             }
         builder.create()
         builder.show()
+
     }
 
     private fun getDataFromServer(decriment: Int) {
