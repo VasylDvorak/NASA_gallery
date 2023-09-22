@@ -21,7 +21,7 @@
             app:tabInlineLabel="true"
             app:tabMode="auto"
             app:tabRippleColor="@color/color4"
-            app:tabTextColor="@color/green"
+            app:tabTextColor="@color/purple_700"
             app:tabUnboundedRipple="true" />
 
 
@@ -34,5 +34,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

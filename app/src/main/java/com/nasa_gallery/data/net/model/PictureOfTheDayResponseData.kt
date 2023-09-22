@@ -1,4 +1,4 @@
-package com.nasa_gallery.model
+package com.nasa_gallery.data.net.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -11,4 +11,4 @@ data class PictureOfTheDayResponseData(
     @SerializedName("service_version") var serviceVersion: String? = "",
     var title: String? = "",
     var url: String?,
-    )
+)

@@ -1,5 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" translatable="false">NASA_gallery</string>
+    <string name="pause_left" translatable="false">M26, 23 V41</string>
+    <string name="pause_right" translatable="false">M37, 23 L37, 32 L37, 41 </string>
+    <string name="pause_right_play" translatable="false">M26, 23 L41, 32 L27, 41 </string>
+    <string name="clockwise_circle" translatable="false">M32, 8 A24, 24 0 1 1 31.99 ,8 z</string>
+    <string name="app_name" translatable="false">ГАЛЛЕРЕЯ NASA</string>
     <string name="photo_of_the_day_stub" translatable="false">Фото дня</string>
     <string name="search_wiki" translatable="false">Найти в Википедии</string>
     <string name="wiki_helper_text" translatable="false">Поищите термин в википедии</string>
@@ -24,7 +28,7 @@
     <string name="filter" translatable="false">Filter</string>
     <string name="empty_link" translatable="false">Link is empty</string>
     <string name="load_error" translatable="false">Ошибка загрузки</string>
-    <string name="about_program" tools:ignore="ExtraTranslation" translatable="false">О программе</string>
+    <string name="about_program" translatable="false" tools:ignore="ExtraTranslation">О программе</string>
     <string name="message_dialog" translatable="false">Программа создана Василием</string>
     <string name="yes" translatable="false">Да</string>
     <string name="indigo_theme" translatable="false">Индиго</string>
@@ -49,6 +53,35 @@
     <string name="curiosity" translatable="false">Curiosity</string>
     <string name="opportunity" translatable="false">Opportunity</string>
     <string name="spirit" translatable="false">Spirit</string>
+    <string name="photo_from_mars" translatable="false">Фотография с марсохода</string>
+    <string name="constraint" translatable="false">constraint</string>
+    <string name="coordinator" translatable="false">coordinator</string>
+    <string name="motion" translatable="false">motion</string>
+    <string name="description" translatable="false">Описание</string>
+    <string name="back" translatable="false">Назад</string>
+    <string name="play" translatable="false">Проиграть</string>
+    <string name="picture" translatable="false">Картина</string>
+    <string name="title_picture" translatable="false">НАТЮРМОРТ</string>
+    <string name="picture_descripion" translatable="false">На картине нарисована ваза и яблоки. Художник: Екатерина Еремеева</string>
+    <string name="show_description" translatable="false">Показать описание</string>
+    <string name="about_mars">Марс -- четвёртая по удалённости от Солнца и седьмая по размерам планета Солнечной системы. Названа в честь Марса -- древнеримского бога войны, соответствующего древнегреческому Аресу. Иногда Марс называют «красной планетой» из-за красноватого оттенка поверхности, придаваемого ей минералом маггемитом (оксидом железа).</string>
+    <string name="edit_note">Напиши заметку</string>
+    <string name="notes">Заметки</string>
+    <string name="priority">Приоритет</string>
+    <string name="data_create">Дата создания</string>
+    <string name="compare">Сравнение</string>
+    <string name="title_activity_uxactivity">UXActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="tutorial_title">Функция кнопки</string>
+    <string name="tutorial_description">Описание фотографии с NASA.</string>
+    <string name="header_notes">Заголовок</string>
+    <string name="noye_cant_find">Заметка не найдена</string>
 
 </resources>

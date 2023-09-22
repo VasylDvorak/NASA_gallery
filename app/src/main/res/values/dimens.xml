@@ -5,4 +5,11 @@
     <dimen name="peek_height">100dp</dimen>
     <dimen name="text_size">18sp</dimen>
     <dimen name="settings_padding">10dp</dimen>
+    <dimen name="title_size">15sp</dimen>
+    <dimen name="card_corner_radius">30dp</dimen>
+    <dimen name="margin_navigation_view">8dp</dimen>
+    <dimen name="padding_text">10dp</dimen>
+    <dimen name="text_header_padding">10dp</dimen>
+    <dimen name="recycler_padding">40dp</dimen>
+    <dimen name="app_name_title_size">30sp</dimen>
 </resources>

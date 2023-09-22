@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/PictureLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/picture_size"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/material_dynamic_neutral_variant80">
+        android:background="@color/material_dynamic_neutral_variant80"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.nasa_gallery.model.util.MyImageView
-            android:id="@+id/image_view"
+        <LinearLayout
+            android:id="@+id/linear_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/picture_size"
-            android:layout_gravity="center"
-            android:contentDescription="@string/photo_of_the_day_stub"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_no_photo_vector" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_mars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/photo_from_mars"
+
+                android:textSize="@dimen/text_size" />
+
+            <com.nasa_gallery.ui.MyCustomImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/picture_size"
+                android:layout_gravity="center"
+                android:contentDescription="@string/photo_of_the_day_stub"
+                android:rotation="0"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_no_photo_vector" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/loading"
@@ -29,4 +49,4 @@
             android:visibility="gone" />
     </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
